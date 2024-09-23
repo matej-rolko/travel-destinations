@@ -1,7 +1,8 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
-const uri = "mongodb+srv://matejrolko2:2582o5205M@cluster0.igcrx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+import dotenv from "dotenv";
+dotenv.config();
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.MONGO_URL, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
