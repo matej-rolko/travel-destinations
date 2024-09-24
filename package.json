@@ -1,22 +1,27 @@
 {
-  "name": "basicnodejs2024web",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon expressServer.js"
-  },
-  "type": "module",
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "http": "^0.0.1-security",
-    "mongodb": "^6.9.0",
-    "mongoose": "^8.6.3",
-    "nodemon": "^3.1.7"
-  }
+    "name": "travel-destinations",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "tsx index.js"
+    },
+    "type": "module",
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "http": "^0.0.1-security",
+        "mongodb": "^6.9.0",
+        "mongoose": "^8.6.3"
+    },
+    "devDependencies": {
+        "tsx": "^4.19.1"
+    },
+    "engines": {
+        "node": ">=22.0.0 <23.0.0"
+    }
 }
