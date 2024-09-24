@@ -3,9 +3,11 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "start": "tsx ./src/index.js",
-        "dev": "tsx --watch ./src/index.js",
-        "format": "npx prettier . --write",
+        "start": "tsx ./src/server/index.js",
+        "start-server": "tsx ./src/server/index.js",
+        "dev": "tsx --watch ./src/server/index.js",
+        "dev-server": "tsx --watch ./src/server/index.js",
+        "format": "prettier . --write",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "type": "module",
@@ -21,6 +23,7 @@
         "mongoose": "^8.6.3"
     },
     "devDependencies": {
+        "concurrently": "^9.0.1",
         "prettier": "^3.3.3",
         "tsx": "^4.19.1"
     },
