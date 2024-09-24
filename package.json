@@ -1,7 +1,6 @@
 {
     "name": "travel-destinations",
     "version": "1.0.0",
-    "main": "index.js",
     "scripts": {
         "start": "tsx ./src/server/index.js",
         "start-server": "tsx ./src/server/index.js",
