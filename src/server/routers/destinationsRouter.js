@@ -1,12 +1,12 @@
 import express from "express";
-import { CollectionsEnum, getAll, getById } from "./dbOperations.js";
+import { Collections, getAll, getById } from "../db";
 
-export const destinationsRouter = express.Router();
+export const router = express.Router();
 
 // get all
-destinationsRouter.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
-        const result = await getAll(CollectionsEnum.Destinations);
+        const result = await getAll(Collections.Destinations);
         res.send(result);
     } catch (error) {
         handleError(res, error);
@@ -14,12 +14,9 @@ destinationsRouter.get("/", async (req, res) => {
 });
 
 // get by id
-destinationsRouter.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
-        const result = await getById(
-            CollectionsEnum.Destinations,
-            req.params.id,
-        );
+        const result = await getById(Collections.Destinations, req.params.id);
         res.send(result);
     } catch (error) {
         handleError(res, error);
@@ -27,20 +24,20 @@ destinationsRouter.get("/:id", async (req, res) => {
 });
 
 //create
-destinationsRouter.post("/", (req, res) => {
+router.post("/", (req, res) => {
     console.log("params", req.params);
 
     res.send(req.body);
 });
 
 //update
-destinationsRouter.put("/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     console.log("params", req.params);
     res.send(req.params);
 });
 
 //delete
-destinationsRouter.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     console.log("params", req.params);
 
     res.send("Hello World! This is so much better now!");
