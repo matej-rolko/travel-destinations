@@ -8,7 +8,7 @@ export const errorMiddleware = async (err, _req, res, _next) => {
     res.status(statusCode).json({
         success: false,
         message: message,
-        error: err.stack
+        error: err.stack // should display stack only if in dev env
     });
 
 }

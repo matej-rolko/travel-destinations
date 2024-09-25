@@ -1,22 +1,33 @@
 {
-  "name": "basicnodejs2024web",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon expressServer.js"
-  },
-  "type": "module",
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "http": "^0.0.1-security",
-    "mongodb": "^6.9.0",
-    "mongoose": "^8.6.3",
-    "nodemon": "^3.1.7"
-  }
+    "name": "travel-destinations",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "tsx ./src/server/index.js",
+        "start-server": "tsx ./src/server/index.js",
+        "dev": "tsx --watch ./src/server/index.js",
+        "dev-server": "tsx --watch ./src/server/index.js",
+        "format": "prettier . --write",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "module",
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "http": "^0.0.1-security",
+        "mongodb": "^6.9.0",
+        "mongoose": "^8.6.3",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "concurrently": "^9.0.1",
+        "prettier": "^3.3.3",
+        "tsx": "^4.19.1"
+    },
+    "engines": {
+        "node": ">=22.0.0 <23.0.0"
+    }
 }
