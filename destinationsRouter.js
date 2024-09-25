@@ -1,52 +1,44 @@
 import express from "express";
-import { CollectionsEnum, getAll, getById } from "./dbOperations.js";
+import { create, getAll, getById } from "./dbOperations.js";
+import { Destination } from './schemas/destinationSchema.js';
 
 export const destinationsRouter = express.Router();
 
 // get all
-destinationsRouter.get('/', async (req, res) => {
+destinationsRouter.get('/', async (req, res, next) => {
     try {
-        const result = await getAll(CollectionsEnum.Destinations);
-        res.send(result);
+        res.status(200).json(await getAll(Destination, req.query));
     } catch (error) {
-        handleError(res, error);
+        next(error);
     }
 })
-  
+
 // get by id
-destinationsRouter.get('/:id', async (req, res) => {
+destinationsRouter.get('/:id', async (req, res, next) => {
     try {
-        const result = await getById(CollectionsEnum.Destinations, req.params.id);
-        res.send(result);
+        res.status(200).json(await getById(Destination, req.params.id));
     } catch (error) {
-        handleError(res, error);
+        next(error);
     }
 })
 
 //create  
-destinationsRouter.post('/', (req, res) => {
-      console.log("params", req.params);
-      
-      res.send(req.body)
+destinationsRouter.post('/', async (req, res) => {
+    try {
+        res.status(201).json(await create(Destination, req.body));
+    } catch (error) {
+        next(error);
+    }
 })
 
 //update
 destinationsRouter.put('/:id', (req, res) => {
-    console.log("params", req.params);
-    res.send(req.params)
+    // console.log("params", req.params);
+    // res.send(req.params)
 })
 
 //delete
 destinationsRouter.delete('/:id', (req, res) => {
-    console.log("params", req.params);
-    
-    res.send('Hello World! This is so much better now!')
+    // console.log("params", req.params);
+    // res.send('Hello World! This is so much better now!')
 })
-
-function handleError(res, error) {
-    if(error.name === "BSONError") {
-        res.status(400).json({message: "Wrong id length! Use 24 character hex string format."});
-    } else {
-        res.status(500).json({message: "An error occurred!"});
-    }
-}

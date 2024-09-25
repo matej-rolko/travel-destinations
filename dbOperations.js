@@ -1,47 +1,22 @@
-import { ObjectId } from "mongodb";
-import {client} from "./dbConn.js"
-export const CollectionsEnum = {
-    Destinations: "Destinations",
-    Users: "Users"
+export async function getAll(model, params) {
+  const query = createSearchQuery(params);
+  return await model.find(query);
 }
 
-const dbName = "TravelDestinations"
+export async function getById(model, id) {
+  return await model.findById(id);
+}
 
-export async function getAll(collection) {
-    try {
-      // Connect the client to the server (optional starting in v4.7)
-      await client.connect();
-      // Send a ping to confirm a successful connection
-      const result = await client.db(dbName).collection(collection).find().toArray();
-      console.log("result object", result);
-      
-      return result;
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }  
-  }
+export async function create(model, data) {
+  const newEntry = new model(data);
+  return await newEntry.save();
+}
 
-  export async function getById(collection, id) {
-    try {
-      // Connect the client to the server (optional starting in v4.7)
-      await client.connect();
-      // Send a ping to confirm a successful connection
-      const result = await client.db(dbName).collection(collection).findOne({_id: new ObjectId(id)});
-      console.log("result object", result);
-      
-      return result;
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }  
-  }
+export function createSearchQuery(params) {
 
-  export async function create(collection, data) {
-    try {
-        await client.connect();
-        const result = await client.db(dbName).collection(collection).insertOne(data);
-    } finally {
-        
-    }
-  }
+  // Loop over the queryParams to construct the query object
+  let query = {};
+  for (const [key, value] of Object.entries(params))
+    query[key] = { $regex: value, $options: 'i' }; // i = case insensitive
+  return query;
+}
