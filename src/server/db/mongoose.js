@@ -11,3 +11,6 @@ export const connect = async () => {
     import("./schemas/destinationSchema.js");
 };
 export const disconnect = async () => await mongoose.disconnect();
+
+export const connectionState = () =>
+    mongoose.STATES[mongoose.connection.readyState];
