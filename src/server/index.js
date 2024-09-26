@@ -8,6 +8,7 @@ import {
     logMiddleware,
     unknownRouteMiddleware,
 } from "./middlewares";
+import { runServer } from "./utils/server.js";
 
 // TODO:
 // introduce ok() and err() functions to have uniform json responses
@@ -19,7 +20,7 @@ const APIRouter = express
     .use("/destinations", destinationsRouter)
     .use("/healthcheck", healthcheckRouter);
 
-const server = () => {
+const setup = () =>
     express()
         // TODO: make this only for dev
         .use(logMiddleware)
@@ -28,16 +29,14 @@ const server = () => {
         .use(cors())
         .use("/api/v1", APIRouter)
         .use(unknownRouteMiddleware)
-        .use(errorHandler)
-        .listen(PORT, () => {
-            console.log(`App listening on port ${PORT}`);
-        });
-};
+        .use(errorHandler);
 
 (async () => {
     try {
         await db.connect();
-        server();
+        await runServer(setup(), PORT);
+    } catch (e) {
+        console.error(e);
     } finally {
         await db.disconnect();
     }
