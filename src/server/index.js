@@ -10,15 +10,13 @@ import {
 } from "./middlewares";
 import { runServer } from "./utils/server.js";
 
-// TODO:
-// introduce ok() and err() functions to have uniform json responses
-
 const { PORT } = env;
 
 const APIRouter = express
     .Router()
     .use("/destinations", destinationsRouter)
-    .use("/healthcheck", healthcheckRouter);
+    .use("/healthcheck", healthcheckRouter)
+    .use(unknownRouteMiddleware(true));
 
 const setup = () =>
     express()
@@ -28,7 +26,7 @@ const setup = () =>
         .use(express.urlencoded({ extended: true }))
         .use(cors())
         .use("/api/v1", APIRouter)
-        .use(unknownRouteMiddleware)
+        .use(unknownRouteMiddleware(false))
         .use(errorHandler);
 
 (async () => {

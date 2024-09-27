@@ -1,15 +1,17 @@
-export const errorHandler = async (err, _req, res, next) => {
+import { err } from "../../shared/result.js";
+export const errorHandler = async (error, _req, res, next) => {
     if (res.headersSent) {
-        return next(err);
+        return next(error);
     }
-    const statusCode = err.status || 500;
-    const message = err.message || "Internal Server Error";
+    const statusCode = error.status || 500;
+    const message = error.message || "Internal Server Error";
 
     console.error(`Error: ${message}, Status: ${statusCode}`);
 
-    res.status(statusCode).json({
-        success: false,
-        message: message,
-        error: err.stack, // should display stack only if in dev env
-    });
+    res.status(statusCode).json(
+        err({
+            message: message,
+            stack: error.stack, // should display stack only if in dev env
+        }),
+    );
 };

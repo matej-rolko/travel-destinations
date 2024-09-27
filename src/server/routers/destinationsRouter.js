@@ -1,5 +1,6 @@
 import express from "express";
 import { create, getAll, getById, Models } from "../db";
+import { ok } from "../../shared/result";
 
 const { Destination } = Models;
 
@@ -7,17 +8,17 @@ export const router = express.Router();
 
 // get all
 router.get("/", async (req, res) => {
-    res.status(200).json(await getAll(Destination, req.query));
+    res.status(200).json(ok(await getAll(Destination, req.query)));
 });
 
 // get by id
 router.get("/:id", async (req, res) => {
-    res.status(200).json(await getById(Destination, req.params.id));
+    res.status(200).json(ok(await getById(Destination, req.params.id)));
 });
 
 //create
 router.post("/", async (req, res) => {
-    res.status(201).json(await create(Destination, req.body));
+    res.status(201).json(ok(await create(Destination, req.body)));
 });
 
 //update
