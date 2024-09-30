@@ -1,30 +1,27 @@
-import { ObjectId } from "mongodb";
-import { db } from "./client.js";
+import { Destination } from "./schemas/destinationSchema";
 
-export const Collections = {
-    Destinations: "Destinations",
-    Users: "Users",
+export const Models = {
+    Destination,
 };
 
-export async function getAll(collection) {
-    // Send a ping to confirm a successful connection
-    const result = await db.collection(collection).find().toArray();
-    console.log("result object", result);
-
-    return result;
+export async function getAll(model, params) {
+    const query = createSearchQuery(params);
+    return await model.find(query);
 }
 
-export async function getById(collection, id) {
-    // Send a ping to confirm a successful connection
-    const result = await db
-        .collection(collection)
-        // FIXME: this signature is deprecated
-        .findOne({ _id: new ObjectId(id) });
-    console.log("result object", result);
-
-    return result;
+export async function getById(model, id) {
+    return await model.findById(id);
 }
 
-export async function create(collection, data) {
-    return await db.collection(collection).insertOne(data);
+export async function create(model, data) {
+    const newEntry = new model(data);
+    return await newEntry.save();
+}
+
+export function createSearchQuery(params) {
+    // Loop over the queryParams to construct the query object
+    let query = {};
+    for (const [key, value] of Object.entries(params))
+        query[key] = { $regex: value, $options: "i" }; // i = case insensitive
+    return query;
 }

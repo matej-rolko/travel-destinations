@@ -1,29 +1,40 @@
 import express from "express";
 import cors from "cors";
-import { destinationsRouter } from "./routers";
-import * as db from "./db/client.js";
+import * as db from "./db/mongoose.js";
 import { env } from "./env.js";
+import { destinationsRouter, healthcheckRouter } from "./routers";
+import {
+    errorHandler,
+    logMiddleware,
+    unknownRouteMiddleware,
+} from "./middlewares";
+import { runServer } from "./utils/server.js";
 
 const { PORT } = env;
 
-const runServer = async () => {
-    const app = express();
+const APIRouter = express
+    .Router()
+    .use("/destinations", destinationsRouter)
+    .use("/healthcheck", healthcheckRouter)
+    .use(unknownRouteMiddleware(true));
 
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(cors());
-
-    app.use("/destinations", destinationsRouter);
-
-    app.listen(PORT, () => {
-        console.log(`App listening on port ${PORT}`);
-    });
-};
+const setup = () =>
+    express()
+        // TODO: make this only for dev
+        .use(logMiddleware)
+        .use(express.json())
+        .use(express.urlencoded({ extended: true }))
+        .use(cors())
+        .use("/api/v1", APIRouter)
+        .use(unknownRouteMiddleware(false))
+        .use(errorHandler);
 
 (async () => {
     try {
         await db.connect();
-        await runServer();
+        await runServer(setup(), PORT);
+    } catch (e) {
+        console.error(e);
     } finally {
         await db.disconnect();
     }

@@ -1,54 +1,34 @@
 import express from "express";
-import { Collections, getAll, getById } from "../db";
+import { create, getAll, getById, Models } from "../db";
+import { ok } from "../../shared/result";
+
+const { Destination } = Models;
 
 export const router = express.Router();
 
 // get all
 router.get("/", async (req, res) => {
-    try {
-        const result = await getAll(Collections.Destinations);
-        res.send(result);
-    } catch (error) {
-        handleError(res, error);
-    }
+    res.status(200).json(ok(await getAll(Destination, req.query)));
 });
 
 // get by id
 router.get("/:id", async (req, res) => {
-    try {
-        const result = await getById(Collections.Destinations, req.params.id);
-        res.send(result);
-    } catch (error) {
-        handleError(res, error);
-    }
+    res.status(200).json(ok(await getById(Destination, req.params.id)));
 });
 
 //create
-router.post("/", (req, res) => {
-    console.log("params", req.params);
-
-    res.send(req.body);
+router.post("/", async (req, res) => {
+    res.status(201).json(ok(await create(Destination, req.body)));
 });
 
 //update
 router.put("/:id", (req, res) => {
-    console.log("params", req.params);
-    res.send(req.params);
+    // console.log("params", req.params);
+    // res.send(req.params)
 });
 
 //delete
 router.delete("/:id", (req, res) => {
-    console.log("params", req.params);
-
-    res.send("Hello World! This is so much better now!");
+    // console.log("params", req.params);
+    // res.send('Hello World! This is so much better now!')
 });
-
-function handleError(res, error) {
-    if (error.name === "BSONError") {
-        res.status(400).json({
-            message: "Wrong id length! Use 24 character hex string format.",
-        });
-    } else {
-        res.status(500).json({ message: "An error occurred!" });
-    }
-}
