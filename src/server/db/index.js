@@ -18,6 +18,19 @@ export async function create(model, data) {
     return await newEntry.save();
 }
 
+export async function update(model, id, data) {
+    return await model.findByIdAndUpdate(
+        id,
+        data,
+        { new: true, runValidators: true }
+    );
+}
+
+// Named it del because delete is a reserved word
+export async function del(model, id) {
+    return await model.findByIdAndDelete(id);
+}
+
 export function createSearchQuery(params) {
     // Loop over the queryParams to construct the query object
     let query = {};
