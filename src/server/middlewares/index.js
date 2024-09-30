@@ -3,7 +3,7 @@ import { err } from "../../shared/result.js";
 export * from "./errorHandler.js";
 
 export const logMiddleware = (req, _res, next) => {
-    console.log(req);
+    // console.log(req);
     next();
 };
 
