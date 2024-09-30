@@ -3,7 +3,7 @@ import { env } from "../env";
 
 const { MONGO_URL } = env;
 
-const mongooseLog = (state) => console.log(`mongoose event: ${state}`);
+const mongooseLog = (state: unknown) => console.log(`mongoose event: ${state}`);
 
 const conn = mongoose.connection;
 conn.on("connected", () => mongooseLog("connected"));

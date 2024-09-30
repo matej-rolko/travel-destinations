@@ -1,13 +1,14 @@
 import { err } from "../../shared/result";
+import type { RequestHandler } from "express";
 
 export * from "./errorHandler";
 
-export const logMiddleware = (req, _res, next) => {
+export const logMiddleware: RequestHandler = (req, _res, next) => {
     // console.log(req);
     next();
 };
 
-export const unknownRouteMiddleware = (isjson) => {
+export const unknownRouteMiddleware = (isjson: boolean): RequestHandler => {
     const msg = "Unknown route!";
     const code = 404;
     return (_, res, _next) => {
