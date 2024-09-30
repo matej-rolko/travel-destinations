@@ -1,4 +1,8 @@
 import { err } from "../../shared/result.js";
+import { env } from "../env.js";
+
+const { NODE_ENV } = env;
+
 export const errorHandler = async (error, _req, res, next) => {
     if (res.headersSent) {
         return next(error);
@@ -11,7 +15,7 @@ export const errorHandler = async (error, _req, res, next) => {
     res.status(statusCode).json(
         err({
             message: message,
-            stack: error.stack, // should display stack only if in dev env
+            ...(NODE_ENV === "development" && { stack: error.stack }), // should display stack only if in dev env
         }),
     );
 };
