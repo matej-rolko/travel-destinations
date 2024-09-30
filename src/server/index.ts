@@ -1,14 +1,14 @@
 import express from "express";
 import cors from "cors";
-import * as db from "./db/mongoose.js";
-import { env } from "./env.js";
+import * as db from "./db/mongoose";
+import { env } from "./env";
 import { destinationsRouter, healthcheckRouter } from "./routers";
 import {
     errorHandler,
     logMiddleware,
     unknownRouteMiddleware,
 } from "./middlewares";
-import { runServer } from "./utils/server.js";
+import { runServer } from "./utils/server";
 
 const { PORT } = env;
 

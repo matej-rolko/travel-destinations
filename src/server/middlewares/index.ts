@@ -1,6 +1,6 @@
-import { err } from "../../shared/result.js";
+import { err } from "../../shared/result";
 
-export * from "./errorHandler.js";
+export * from "./errorHandler";
 
 export const logMiddleware = (req, _res, next) => {
     // console.log(req);

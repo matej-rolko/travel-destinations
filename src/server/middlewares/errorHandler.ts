@@ -1,5 +1,5 @@
-import { err } from "../../shared/result.js";
-import { env } from "../env.js";
+import { err } from "../../shared/result";
+import { env } from "../env";
 
 const { NODE_ENV } = env;
 
