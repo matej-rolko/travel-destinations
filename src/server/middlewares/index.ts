@@ -1,4 +1,4 @@
-import { err } from "../../shared/result";
+import { err } from "$shared/result";
 import type { RequestHandler } from "express";
 
 export * from "./errorHandler";

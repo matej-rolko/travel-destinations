@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { connectionState } from "../db/mongoose";
-import { ok } from "../../shared/result";
+import { connectionState } from "~/db/mongoose";
+import { ok } from "$shared/result";
 
 export { router as destinationsRouter } from "./destinationsRouter";
 

@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler } from "express";
-import { err } from "../../shared/result";
-import { env } from "../env";
+import { err } from "$shared/result";
+import { env } from "$env";
 
 const { NODE_ENV } = env;
 

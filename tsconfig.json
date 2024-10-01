@@ -19,9 +19,19 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedIndexedAccess": true,
-        "rootDir": "./src/server",
-        "baseUrl": "./src/server"
+        "rootDir": "./src/",
+        "baseUrl": "./src/server",
+        "paths": {
+            // "$lib/*": ["lib/*"],
+            "~/*": ["./*"],
+            "$env": ["./env"],
+            "$shared/*": ["../shared/*"]
+        }
     },
-    "include": ["./src/server/**/*.ts", "../../vite.config.ts"],
+    "include": [
+        "./src/server/**/*.ts",
+        "./src/shared/**/*.ts",
+        "../../vite.config.ts"
+    ],
     "exclude": ["./src/client", "node_modules", "./dist"]
 }

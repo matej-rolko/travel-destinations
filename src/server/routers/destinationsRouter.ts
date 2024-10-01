@@ -1,6 +1,6 @@
 import express from "express";
-import { create, getAll, getById, Models } from "../db";
-import { ok } from "../../shared/result";
+import { create, getAll, getById, Models } from "~/db";
+import { ok } from "$shared/result";
 
 const { Destination } = Models;
 
