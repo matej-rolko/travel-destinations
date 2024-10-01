@@ -3,7 +3,7 @@ import type { RequestHandler } from "express";
 
 export * from "./errorHandler";
 
-export const logMiddleware: RequestHandler = (req, _res, next) => {
+export const logMiddleware: RequestHandler = (_req, _res, next) => {
     // console.log(req);
     next();
 };

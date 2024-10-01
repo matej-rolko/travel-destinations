@@ -1,7 +1,8 @@
 import { Destination } from "./schemas/destinationSchema";
 import type { Model as Schema } from "mongoose";
 
-// TS helpers to extract Model type from Schema
+// TS helper to extract Model type from Schema
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExtractModel<T extends Schema<any>> =
     T extends Schema<infer U> ? U : never;
 
@@ -29,7 +30,7 @@ export async function create<M extends Model>(model: M, data: ExtractModel<M>) {
 
 export function createSearchQuery(params: object): Params {
     // Loop over the queryParams to construct the query object
-    let query: Params = {};
+    const query: Params = {};
     for (const [key, value] of Object.entries(params))
         query[key] = { $regex: value, $options: "i" }; // i = case insensitive
     return query;
