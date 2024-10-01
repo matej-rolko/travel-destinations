@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { connectionState } from "../db/mongoose.js";
-import { ok } from "../../shared/result.js";
+import { connectionState } from "~/db/mongoose";
+import { ok } from "$shared/result";
 
-export { router as destinationsRouter } from "./destinationsRouter.js";
+export { router as destinationsRouter } from "./destinationsRouter";
 
 export const healthcheckRouter = Router()
     .get("/", (_, res) => {
