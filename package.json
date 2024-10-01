@@ -12,6 +12,8 @@
         "format": "prettier . --write",
         "lint": "eslint .",
         "type-check": "tsc --noEmit",
+        "lint-all": "eslint . && tsc --noEmit",
+        "build-with-checks": "eslint . && tsc --noEmit && pkgroll",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "type": "module",
