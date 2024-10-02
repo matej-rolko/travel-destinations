@@ -5,25 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Diary - Home</title>
     <link rel="stylesheet" href="../public/assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="row">
         <nav>
-            <div class="logo">
-                <img src="../public/images/icon_white.png" alt="Travel Diary Logo">
-                <h1>Travel Diary</h1>
-            </div>
-            <ul class="nav-links">
+            <ul class="nav-links column">
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="#">Destinations</a></li>
                 <li><a href="#">Travels</a></li>
-                <li><a href="#">User</a></li>
+            </ul>
+            <div class="logo column">
+               <!-- <img src="../public/images/icon.png" alt="Travel Diary Logo">-->
+                <h1>Travel Diary</h1>
+            </div>
+            <ul class="nav-links column">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Log in</a></li>
             </ul>
         </nav>
     </header>
    <!-- <div class="diary"></div>-->
-    <div class="map"></div>
+    <div class="map-left"></div>
+    <div class="map-right"></div>
+
     <section class="hero">
         <div class="hero-content">
             <h2>Your travel memories<br>in one place</h2>
