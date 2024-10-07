@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const travelsSchema = new mongoose.Schema({
     destination_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Destination',
-        required: true
+        ref: "Destination",
+        required: true,
     },
     date_from: {
         type: Date,
-        required: true
+        required: true,
     },
     date_to: {
         type: Date,
-        required: true
-    }
+        required: true,
+    },
 });
 
 const usersSchema = new mongoose.Schema({
@@ -40,16 +40,16 @@ const usersSchema = new mongoose.Schema({
     created: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
     },
     isAdmin: {
         type: Boolean,
-        required: true
+        required: true,
     },
     travels: {
         type: [travelsSchema],
-        default: []
-    }
+        default: [],
+    },
 });
 
 export const User = mongoose.model("User", usersSchema);

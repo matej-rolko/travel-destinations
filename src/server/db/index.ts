@@ -11,7 +11,7 @@ type ExtractModel<T extends Schema<any>> =
 
 export const Models = {
     Destination,
-    User
+    User,
 };
 
 export type Model = (typeof Models)[keyof typeof Models];
@@ -43,7 +43,10 @@ export async function getById<T>(model: Schema<T>, id: unknown) {
     return await model.findById(id);
 }
 
-export async function create<T>(model: Schema<T>, data: ExtractModel<Schema<T>>) {
+export async function create<T>(
+    model: Schema<T>,
+    data: ExtractModel<Schema<T>>,
+) {
     return await runSafe(async () => {
         const newEntry = new model(data);
         return await newEntry.save();
