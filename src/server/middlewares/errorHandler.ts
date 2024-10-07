@@ -1,9 +1,15 @@
-import { err } from "../../shared/result.js";
-import { env } from "../env.js";
+import type { ErrorRequestHandler } from "express";
+import { err } from "$shared/result";
+import { env } from "$env";
 
 const { NODE_ENV } = env;
 
-export const errorHandler = async (error, _req, res, next) => {
+export const errorHandler: ErrorRequestHandler = async (
+    error,
+    _req,
+    res,
+    next,
+) => {
     if (res.headersSent) {
         return next(error);
     }

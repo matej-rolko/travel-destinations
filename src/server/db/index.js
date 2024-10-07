@@ -38,3 +38,4 @@ export function createSearchQuery(params) {
         query[key] = { $regex: value, $options: "i" }; // i = case insensitive
     return query;
 }
+

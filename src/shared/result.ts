@@ -30,3 +30,24 @@ type errOverload = {
     <T>(err: T): Err<T>;
     (err?: undefined): Err;
 };
+
+// res as sep val due to TS being weird.
+
+export const ok: okOverload = <T>(ok?: T) => {
+    if (ok === undefined) return { success: true } satisfies Ok;
+    const res = {
+        success: true,
+        data: ok,
+    } satisfies { success: true; data: T };
+    return res;
+};
+
+export const err: errOverload = <T>(err?: T) => {
+    if (err === undefined) return { success: false } satisfies Err;
+    console.log(err);
+    const res = {
+        success: false,
+        error: err,
+    } satisfies { success: false; error: T };
+    return res;
+};
