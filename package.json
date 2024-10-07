@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "bin": "./dist/server/index.mjs",
     "scripts": {
-        "start": "NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
-        "start:server": "NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
+        "start": "cross-env NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
+        "start:server": "cross-env NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
         "dev": "tsx --watch ./src/server/index.ts",
         "dev:server": "tsx --watch ./src/server/index.ts",
         "build": "pkgroll",
@@ -34,6 +34,7 @@
         "@eslint/js": "^9.11.1",
         "@types/node": "^20.9.3",
         "concurrently": "^9.0.1",
+        "cross-env": "^7.0.3",
         "eslint": "^9.11.1",
         "globals": "^15.9.0",
         "pkgroll": "^2.5.0",
