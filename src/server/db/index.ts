@@ -28,6 +28,19 @@ export async function create<M extends Model>(model: M, data: ExtractModel<M>) {
     return await newEntry.save();
 }
 
+export async function update<M extends Model>(model: M, id: unknown, data: ExtractModel<M>) {
+    return await model.findByIdAndUpdate(
+        id,
+        data,
+        { new: true, runValidators: true }
+    );
+}
+
+// Named it del because delete is a reserved word
+export async function del<M extends Model>(model: M, id: unknown) {
+    return await model.findByIdAndDelete(id);
+}
+
 export function createSearchQuery(params: object): Params {
     // Loop over the queryParams to construct the query object
     const query: Params = {};

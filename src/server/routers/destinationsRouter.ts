@@ -1,5 +1,5 @@
 import express from "express";
-import { create, getAll, getById, Models } from "~/db";
+import { create, getAll, getById, Models, update, del } from "~/db";
 import { ok } from "$shared/result";
 
 const { Destination } = Models;
@@ -22,13 +22,11 @@ router.post("/", async (req, res) => {
 });
 
 //update
-router.put("/:id", (_req, _res) => {
-    // console.log("params", req.params);
-    // res.send(req.params)
+router.put("/:id", async (req, res) => {
+    res.status(200).json(ok(await update(Destination, req.params.id, req.body)))
 });
 
 //delete
-router.delete("/:id", (_req, _res) => {
-    // console.log("params", req.params);
-    // res.send('Hello World! This is so much better now!')
+router.delete("/:id", async (req, res) => {
+    res.status(200).json(ok(await del(Destination, req.params.id)))
 });
