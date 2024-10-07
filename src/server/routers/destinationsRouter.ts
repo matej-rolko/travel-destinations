@@ -18,14 +18,14 @@ router.get("/:id", async (req, res) => {
 
 //create
 router.post("/", async (req, res) => {
-    res.status(201).json(ok(await create(Destination, req.body)));
+    const result = await create(Destination, req.body);
+    res.status(result.success ? 201 : 422).json(result);
 });
 
 //update
 router.put("/:id", async (req, res) => {
-    res.status(200).json(
-        ok(await update(Destination, req.params.id, req.body)),
-    );
+    const result = await update(Destination, req.params.id, req.body);
+    res.status(result.success ? 201 : 422).json(result);
 });
 
 //delete
