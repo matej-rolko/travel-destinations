@@ -23,10 +23,12 @@ router.post("/", async (req, res) => {
 
 //update
 router.put("/:id", async (req, res) => {
-    res.status(200).json(ok(await update(Destination, req.params.id, req.body)))
+    res.status(200).json(
+        ok(await update(Destination, req.params.id, req.body)),
+    );
 });
 
 //delete
 router.delete("/:id", async (req, res) => {
-    res.status(200).json(ok(await del(Destination, req.params.id)))
+    res.status(200).json(ok(await del(Destination, req.params.id)));
 });
