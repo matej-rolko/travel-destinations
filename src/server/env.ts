@@ -7,7 +7,10 @@ const ENV_SCHEMA = z.object({
     PORT: z.coerce.number().default(3000),
     MONGO_URL: z.string().url().min(1),
     NODE_ENV: z
-        .enum(["development", "production"])
+        .preprocess(
+            (x) => typeof x == "string" && x.toLowerCase(),
+            z.enum(["development", "production"]),
+        )
         .optional()
         .default("production"),
 });
