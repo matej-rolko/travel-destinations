@@ -1,6 +1,6 @@
 import express from "express";
-import { create, getAll, getById, Models } from "../db";
-import { ok } from "../../shared/result";
+import { create, getAll, getById, Models } from "~/db";
+import { ok } from "$shared/result";
 
 const { Destination } = Models;
 
@@ -22,13 +22,13 @@ router.post("/", async (req, res) => {
 });
 
 //update
-router.put("/:id", (req, res) => {
+router.put("/:id", (_req, _res) => {
     // console.log("params", req.params);
     // res.send(req.params)
 });
 
 //delete
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (_req, _res) => {
     // console.log("params", req.params);
     // res.send('Hello World! This is so much better now!')
 });

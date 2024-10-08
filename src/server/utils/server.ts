@@ -1,5 +1,7 @@
-export const runServer = (app, port) =>
-    new Promise((resolve, reject) => {
+import type { Express } from "express";
+
+export const runServer = (app: Express, port: number) =>
+    new Promise<void>((resolve, reject) => {
         const server = app.listen(port, () => {
             console.log(`App listening on port ${port}`);
         });
