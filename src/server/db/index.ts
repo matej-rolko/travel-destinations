@@ -1,7 +1,8 @@
 import { err, ok, type Result } from "$shared/result";
 import mongoose from "mongoose";
 import { Destination } from "./schemas/destinationSchema";
-import type { Model as Schema } from "mongoose";
+import type { Model as Schema, UpdateQuery } from "mongoose";
+import { User } from "./schemas/userSchema";
 
 // TS helper to extract Model type from Schema
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,6 +11,7 @@ type ExtractModel<T extends Schema<any>> =
 
 export const Models = {
     Destination,
+    User,
 };
 
 export type Model = (typeof Models)[keyof typeof Models];
@@ -32,26 +34,29 @@ const runSafe = async <Ok>(
     }
 };
 
-export async function getAll<M extends Model>(model: M, params: Params) {
+export async function getAll<T>(model: Schema<T>, params: Params) {
     const query = createSearchQuery(params);
     return await model.find(query);
 }
 
-export async function getById<M extends Model>(model: M, id: unknown) {
+export async function getById<T>(model: Schema<T>, id: unknown) {
     return await model.findById(id);
 }
 
-export async function create<M extends Model>(model: M, data: ExtractModel<M>) {
+export async function create<T>(
+    model: Schema<T>,
+    data: ExtractModel<Schema<T>>,
+) {
     return await runSafe(async () => {
         const newEntry = new model(data);
         return await newEntry.save();
     });
 }
 
-export async function update<M extends Model>(
-    model: M,
+export async function update<T>(
+    model: Schema<T>,
     id: unknown,
-    data: ExtractModel<M>,
+    data: UpdateQuery<T>,
 ) {
     return await runSafe(async () => {
         return await model.findByIdAndUpdate(id, data, {
@@ -62,7 +67,8 @@ export async function update<M extends Model>(
 }
 
 // Named it del because delete is a reserved word
-export async function del<M extends Model>(model: M, id: unknown) {
+
+export async function del<T>(model: Schema<T>, id: unknown) {
     return await model.findByIdAndDelete(id);
 }
 
