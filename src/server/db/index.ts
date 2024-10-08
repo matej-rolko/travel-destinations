@@ -34,7 +34,9 @@ const runSafe = async <Ok>(
     }
 };
 
+
 export async function getAll<T>(model: Schema<T>, params: Params) {
+
     const query = createSearchQuery(params);
     return await model.find(query);
 }
@@ -43,20 +45,24 @@ export async function getById<T>(model: Schema<T>, id: unknown) {
     return await model.findById(id);
 }
 
+
 export async function create<T>(
     model: Schema<T>,
     data: ExtractModel<Schema<T>>,
 ) {
+
     return await runSafe(async () => {
         const newEntry = new model(data);
         return await newEntry.save();
     });
 }
 
+
 export async function update<T>(
     model: Schema<T>,
     id: unknown,
     data: UpdateQuery<T>,
+
 ) {
     return await runSafe(async () => {
         return await model.findByIdAndUpdate(id, data, {
@@ -67,7 +73,9 @@ export async function update<T>(
 }
 
 // Named it del because delete is a reserved word
+
 export async function del<T>(model: Schema<T>, id: unknown) {
+
     return await model.findByIdAndDelete(id);
 }
 
