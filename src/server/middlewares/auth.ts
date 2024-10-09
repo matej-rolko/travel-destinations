@@ -1,10 +1,13 @@
 import { err } from "$shared/result";
 import { type Handler } from "express";
-import { AuthErrors, extractToken, type User, verifyToken } from "~/lib/auth";
+import {
+    AuthErrors,
+    extractToken,
+    type UserWithToken,
+    verifyToken,
+} from "~/lib/auth";
 
-export type AuthCtx = {
-    user: User;
-};
+export type AuthCtx = UserWithToken;
 export type Context = {
     auth: AuthCtx;
 };
@@ -14,20 +17,20 @@ type RequestWithAuthCtx = Request & {
 };
 
 export const authMiddleware: Handler = async (req, res, next) => {
-    const token = await extractToken(req.headers);
+    const token = extractToken(req.headers);
     if (token == null) {
         console.warn("Authentication failed: no token");
         res.status(401).json(err(AuthErrors.wrongToken));
         return;
     }
-    const user = await verifyToken(token);
-    if (!user.success) {
-        console.warn(`Authentication failed: ${user.error}`);
-        res.status(403).json(err(user.error));
+    const result = await verifyToken(token);
+    if (!result.success) {
+        console.warn(`Authentication failed: ${result.error}`);
+        res.status(403).json(result);
         return;
     }
     (req as unknown as RequestWithAuthCtx).context = {
-        auth: { user: user.data },
+        auth: result.data,
     };
     next();
 };
