@@ -58,7 +58,7 @@ const createUser = async (
 
 /* Token API */
 
-const _tokenSchema = z.string().min(64).max(64);
+const _tokenSchema = z.string().min(1);
 
 export const tokenSchema = _tokenSchema.brand("Token");
 /**
