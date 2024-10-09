@@ -6,6 +6,7 @@ dotenv.config();
 const ENV_SCHEMA = z.object({
     PORT: z.coerce.number().default(3000),
     MONGO_URL: z.string().url().min(1),
+    AUTH_SECRET: z.string().min(64),
     NODE_ENV: z
         .preprocess(
             (x) => typeof x == "string" && x.toLowerCase(),
