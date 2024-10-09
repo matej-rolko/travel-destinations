@@ -9,6 +9,9 @@ import type { Branded } from "$shared/branded";
 
 const TOKEN_AGE = 60 * 30; // 30min
 
+/**
+ * Possible errors from auth logic.
+ */
 export const AuthErrors = {
     emailTaken: "Email already taken!",
     emailNotExist: "Email doesn't exist!",
@@ -19,20 +22,20 @@ export const AuthErrors = {
 
 /* Schemas */
 
-const emailSchema = z.string().email().min(1);
+export const emailSchema = z.string().email().min(1);
 
-const authTokenDataSchema = z.object({
+export const authTokenDataSchema = z.object({
     email: emailSchema,
 });
 
-type AuthTokenData = z.infer<typeof authTokenDataSchema>;
+export type AuthTokenData = z.infer<typeof authTokenDataSchema>;
 
-const userCredentialsSchema = z.object({
+export const userCredentialsSchema = z.object({
     email: emailSchema,
     password: z.string(),
 });
 
-type UserCredentials = z.infer<typeof userCredentialsSchema>;
+export type UserCredentials = z.infer<typeof userCredentialsSchema>;
 
 /* DB helpers */
 
@@ -56,9 +59,20 @@ const createUser = async (
 
 /* Token API */
 
+/**
+ * Verified JWT Token
+ */
 export type Token = Branded<string, "Token">;
+/**
+ * Unverified JWT Token
+ */
 export type UnverifiedToken = Branded<string, "UnverifiedToken">;
 
+/**
+ * Extract Token from http headers
+ * @param headers http headers
+ * @returns Unverified token or `null`
+ */
 export const extractToken = (
     headers: IncomingHttpHeaders,
 ): UnverifiedToken | null => {
@@ -67,9 +81,14 @@ export const extractToken = (
     return null;
 };
 
-export const createToken = (usr: AuthTokenData): Token => {
+/**
+ * Creates a new verified token for the given user data
+ * @param user user data needed for token
+ * @returns Verified token
+ */
+export const createToken = (user: AuthTokenData): Token => {
     // just for safety strip usr of any garbage
-    return jwt.sign(authTokenDataSchema.strip().parse(usr), env.AUTH_SECRET, {
+    return jwt.sign(authTokenDataSchema.strip().parse(user), env.AUTH_SECRET, {
         expiresIn: TOKEN_AGE,
     }) as Token;
 };
@@ -79,6 +98,11 @@ export type UserWithToken = {
     token: Token;
 };
 
+/**
+ * Type-safe and exception-safe wrapper around jwt.verify
+ * @param token JWT token
+ * @returns payload or `null`
+ */
 const jwtSafeVerify = (token: UnverifiedToken | Token) => {
     try {
         return jwt.verify(token, env.AUTH_SECRET, {
@@ -90,6 +114,11 @@ const jwtSafeVerify = (token: UnverifiedToken | Token) => {
     }
 };
 
+/**
+ * Verify that token is correct and not expired
+ * @param token JWT Token
+ * @returns `Result` with `UserWithToken` on success or reason on error
+ */
 export const verifyToken = async (
     token: UnverifiedToken | Token,
 ): Promise<
@@ -106,6 +135,11 @@ export const verifyToken = async (
 
 /* User API */
 
+/**
+ * API to log in an existing user
+ * @param cred user credentials
+ * @returns `Result` with `User` and `Token` on success or reason on error
+ */
 export const login = async (cred: UserCredentials) => {
     const user = await findUser(cred);
     if (user == undefined) {
@@ -119,6 +153,11 @@ export const login = async (cred: UserCredentials) => {
     return ok({ user, token });
 };
 
+/**
+ * API to sign up a new user
+ * @param user `User` object
+ * @returns `Result` with `User` and `Token` on success or reason on error
+ */
 export const signup = async (user: User) => {
     const result = await createUser(user);
     if (!result.success) return result;
