@@ -5,7 +5,6 @@ import { err, ok, type Result } from "$shared/result";
 import { create, type ExtractModel, Models } from "~/db";
 import type mongoose from "mongoose";
 import type { IncomingHttpHeaders } from "http";
-import type { Branded } from "$shared/branded";
 
 const TOKEN_AGE = 60 * 30; // 30min
 
@@ -59,14 +58,19 @@ const createUser = async (
 
 /* Token API */
 
+const _tokenSchema = z.string().min(64).max(64);
+
+export const tokenSchema = _tokenSchema.brand("Token");
 /**
  * Verified JWT Token
  */
-export type Token = Branded<string, "Token">;
+export type Token = z.infer<typeof tokenSchema>;
+
+export const tokenUnverifiedSchema = _tokenSchema.brand("TokenUnverified");
 /**
  * Unverified JWT Token
  */
-export type UnverifiedToken = Branded<string, "UnverifiedToken">;
+export type TokenUnverified = z.infer<typeof tokenUnverifiedSchema>;
 
 /**
  * Extract Token from http headers
@@ -75,9 +79,9 @@ export type UnverifiedToken = Branded<string, "UnverifiedToken">;
  */
 export const extractToken = (
     headers: IncomingHttpHeaders,
-): UnverifiedToken | null => {
+): TokenUnverified | null => {
     const authHeader = headers.authorization;
-    if (authHeader) return authHeader.split(" ")[1] as UnverifiedToken;
+    if (authHeader) return authHeader.split(" ")[1] as TokenUnverified;
     return null;
 };
 
@@ -103,7 +107,7 @@ export type UserWithToken = {
  * @param token JWT token
  * @returns payload or `null`
  */
-const jwtSafeVerify = (token: UnverifiedToken | Token) => {
+const jwtSafeVerify = (token: TokenUnverified | Token) => {
     try {
         return jwt.verify(token, env.AUTH_SECRET, {
             // maxAge: TOKEN_AGE,
@@ -120,7 +124,7 @@ const jwtSafeVerify = (token: UnverifiedToken | Token) => {
  * @returns `Result` with `UserWithToken` on success or reason on error
  */
 export const verifyToken = async (
-    token: UnverifiedToken | Token,
+    token: TokenUnverified | Token,
 ): Promise<
     Result<UserWithToken, (typeof AuthErrors)["wrongToken" | "sessionExpired"]>
 > => {
