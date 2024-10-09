@@ -8,7 +8,7 @@ import {
     logMiddleware,
     unknownRouteMiddleware,
 } from "~/middlewares";
-import { runServer } from "~/utils/server";
+import { runServer } from "~/lib/utils/server";
 
 const { PORT } = env;
 
