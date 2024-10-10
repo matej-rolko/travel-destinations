@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Diary - Travel</title>
     <link rel="stylesheet" href="../public/assets/global.css">
     <link rel="stylesheet" href="./travel.css">
-    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header class="row">
         <nav>
@@ -18,7 +21,7 @@
                 <li><a href="/src/frontend/travels/travel.html">Travels</a></li>
             </ul>
             <div class="logo column">
-               <!-- <img src="../public/images/icon.png" alt="Travel Diary Logo">-->
+                <!-- <img src="../public/images/icon.png" alt="Travel Diary Logo">-->
                 <h1>Travel Diary</h1>
             </div>
             <ul class="nav-links column">
@@ -39,8 +42,9 @@
                 <input type="text" name="title" id="title" placeholder="Title" required>
                 <input type="text" name="address" id="address" placeholder="Address" required>
                 <input type="text" name="country" id="country" placeholder="Country" required>
-                <textarea  name="description" id="description" placeholder="Description" rows="4" required ></textarea> <br>
-                
+                <textarea name="description" id="description" placeholder="Description" rows="4" required></textarea>
+                <br>
+
                 <!-- <input type="file" accept="image/*" name="picture" id="picture" > -->
                 <button type="submit">Submit</button>
             </form>
@@ -48,8 +52,23 @@
     </section>
 
 
-    <ul id="list" class="travelList">  
+    <ul id="list" class="travelList">
+        <!-- example of a card -->
+        <!-- <a href="#" class="travel-list__card-cont">
+            <li class="travel-list__card">
+                <p>Destination: </p>
+                <h3>Eiffel tower</h3>
+                <div class="travel-list__img-cont">
+                    <img src="https://picsum.photos/200">
+                </div>
+                <p>Location: </p>
+                <h5>Paris, France</h5>
+                <p>Year: </p>
+                <h5>2020</h5>
+            </li>
+        </a> -->
     </ul>
     <script src="travel.js"></script>
 </body>
+
 </html>
