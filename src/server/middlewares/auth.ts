@@ -6,6 +6,7 @@ import {
     type UserWithToken,
     verifyToken,
 } from "~/lib/auth";
+import { Models } from "~/db";
 
 export type AuthCtx = UserWithToken;
 export type Context = {
@@ -23,7 +24,7 @@ export const authMiddleware: Handler = async (req, res, next) => {
         res.status(401).json(err(AuthErrors.wrongToken));
         return;
     }
-    const result = await verifyToken(token);
+    const result = await verifyToken(Models.User, token);
     if (!result.success) {
         console.warn(`Authentication failed: ${result.error}`);
         res.status(403).json(result);

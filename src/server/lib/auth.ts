@@ -5,8 +5,7 @@ import { err, ok, type Result } from "$shared/result";
 import { create, type ExtractModel, Models } from "~/db";
 import type mongoose from "mongoose";
 import type { IncomingHttpHeaders } from "http";
-
-const TOKEN_AGE = 60 * 30; // 30min
+import { Model } from "mongoose";
 
 /**
  * Possible errors from auth logic.
@@ -40,10 +39,14 @@ export type UserCredentials = z.infer<typeof userCredentialsSchema>;
 
 export type User = ExtractModel<(typeof Models)["User"]>;
 
-const findUser = async (user: AuthTokenData): Promise<User | null> =>
-    await Models.User.findOne(authTokenDataSchema.strip().parse(user));
+const findUser = async (
+    db: Model<User>,
+    user: AuthTokenData,
+): Promise<User | null> =>
+    await db.findOne(authTokenDataSchema.strip().parse(user));
 
 const createUser = async (
+    db: Model<User>,
     user: User,
 ): Promise<
     Result<
@@ -51,9 +54,9 @@ const createUser = async (
         mongoose.Error.ValidationError | (typeof AuthErrors)["emailTaken"]
     >
 > => {
-    const foundUser = await findUser(user);
+    const foundUser = await findUser(db, user);
     if (foundUser != null) return err(AuthErrors.emailTaken);
-    return await create(Models.User, user);
+    return await create(db, user);
 };
 
 /* Token API */
@@ -81,7 +84,11 @@ export const extractToken = (
     headers: IncomingHttpHeaders,
 ): TokenUnverified | null => {
     const authHeader = headers.authorization;
-    if (authHeader) return authHeader.split(" ")[1] as TokenUnverified;
+    if (authHeader) {
+        const [bear, token] = authHeader.split(" ");
+        if (bear !== "Bearer") return null;
+        return token ? (token as TokenUnverified) : null;
+    }
     return null;
 };
 
@@ -93,7 +100,7 @@ export const extractToken = (
 export const createToken = (user: AuthTokenData): Token => {
     // just for safety strip usr of any garbage
     return jwt.sign(authTokenDataSchema.strip().parse(user), env.AUTH_SECRET, {
-        expiresIn: TOKEN_AGE,
+        expiresIn: env.TOKEN_AGE,
     }) as Token;
 };
 
@@ -109,12 +116,15 @@ export type UserWithToken = {
  */
 const jwtSafeVerify = (token: TokenUnverified | Token) => {
     try {
-        return jwt.verify(token, env.AUTH_SECRET, {
-            // maxAge: TOKEN_AGE,
-        }) as Record<string, unknown> & { iat?: number; exp?: number };
+        return ok(
+            jwt.verify(token, env.AUTH_SECRET, {
+                maxAge: env.TOKEN_AGE,
+            }) as Record<string, unknown> & { iat?: number; exp?: number },
+        );
     } catch (e) {
-        console.warn(e);
-        return null;
+        if (e instanceof jwt.TokenExpiredError)
+            return err(AuthErrors.sessionExpired);
+        return err(AuthErrors.wrongToken);
     }
 };
 
@@ -124,15 +134,16 @@ const jwtSafeVerify = (token: TokenUnverified | Token) => {
  * @returns `Result` with `UserWithToken` on success or reason on error
  */
 export const verifyToken = async (
+    db: Model<User>,
     token: TokenUnverified | Token,
 ): Promise<
     Result<UserWithToken, (typeof AuthErrors)["wrongToken" | "sessionExpired"]>
 > => {
     const maybe_payload = jwtSafeVerify(token);
-    if (maybe_payload == null) return err(AuthErrors.sessionExpired);
-    const result = authTokenDataSchema.safeParse(maybe_payload);
+    if (!maybe_payload.success) return maybe_payload;
+    const result = authTokenDataSchema.safeParse(maybe_payload.data);
     if (!result.success) return err(AuthErrors.wrongToken);
-    const user = await findUser(result.data);
+    const user = await findUser(db, result.data);
     if (user == null) return err(AuthErrors.wrongToken);
     return ok({ user, token: token as Token });
 };
@@ -144,8 +155,8 @@ export const verifyToken = async (
  * @param cred user credentials
  * @returns `Result` with `User` and `Token` on success or reason on error
  */
-export const login = async (cred: UserCredentials) => {
-    const user = await findUser(cred);
+export const login = async (db: Model<User>, cred: UserCredentials) => {
+    const user = await findUser(db, cred);
     if (user == undefined) {
         return err(AuthErrors.emailNotExist);
     }
@@ -162,8 +173,8 @@ export const login = async (cred: UserCredentials) => {
  * @param user `User` object
  * @returns `Result` with `User` and `Token` on success or reason on error
  */
-export const signup = async (user: User) => {
-    const result = await createUser(user);
+export const signup = async (db: Model<User>, user: User) => {
+    const result = await createUser(db, user);
     if (!result.success) return result;
     const token = createToken(result.data);
     // WARN: we shouldn't move user around with his password dangling but it's fine for this demo app

@@ -21,7 +21,7 @@ export const authRouter = Router()
     .post(
         "/login",
         makeEndpoint(userCredentialsSchema, async (body) => {
-            const result = await login(body);
+            const result = await login(Models.User, body);
             if (!result.success) {
                 console.info(
                     `login attempt failed: ${body.email} - ${result.error}`,
@@ -45,10 +45,11 @@ export const authRouter = Router()
             const token = body.token as TokenUnverified;
             // TODO in future save sessions to DB
             // for now we just return ok or err
-            if ((await verifyToken(token)) == null) {
+            const result = await verifyToken(Models.User, token);
+            if (!result.success) {
                 return {
                     status: 403, // TODO: better code
-                    body: err(AuthErrors.wrongToken),
+                    body: result,
                 };
             }
             return {
@@ -60,7 +61,7 @@ export const authRouter = Router()
     .post(
         "/signup",
         makeEndpoint(Models.User, async (body) => {
-            const user = await signup(body);
+            const user = await signup(Models.User, body);
             if (user == null) {
                 return {
                     status: 400,
@@ -77,7 +78,7 @@ export const authRouter = Router()
         "/verify",
         makeEndpoint(tokenRequestSchema, async (body) => {
             const token = body.token as TokenUnverified;
-            const user = await verifyToken(token);
+            const user = await verifyToken(Models.User, token);
             return {
                 status: user.success ? 200 : 400,
                 body: user.success ? ok(user.data) : err(user.error),

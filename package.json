@@ -14,7 +14,7 @@
         "type-check": "tsc --noEmit",
         "lint-all": "eslint . && tsc --noEmit",
         "build-with-checks": "eslint . && tsc --noEmit && pkgroll",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "tsx --test"
     },
     "type": "module",
     "author": "",
@@ -34,6 +34,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.11.1",
+        "@faker-js/faker": "^9.0.3",
         "@types/node": "^20.9.3",
         "concurrently": "^9.0.1",
         "cross-env": "^7.0.3",
