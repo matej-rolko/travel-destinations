@@ -44,10 +44,7 @@ export async function getById<T>(model: Schema<T>, id: unknown) {
     return await model.findById(id);
 }
 
-export async function create<T>(
-    model: Schema<T>,
-    data: ExtractModel<Schema<T>>,
-) {
+export async function create<T>(model: Schema<T>, data: unknown) {
     return await runSafe(async () => {
         const newEntry = new model(data);
         await newEntry.save();
