@@ -16,7 +16,7 @@ jobs:
             # SAFETY:
             # obviously used only for running tests on this ubuntu
             # don't put real one here
-            AUTH_SECRET:"Um9+taszsHHL/cvsvPI5IUqpHROwySqjmLqo4B8VwQOsGZTWknC4vyUuvornaVhjlGlK+hnt8Wdr5Xg1QQGA1QLbFJuh4hTrETBStqiQK14="
+            AUTH_SECRET: "Um9+taszsHHL/cvsvPI5IUqpHROwySqjmLqo4B8VwQOsGZTWknC4vyUuvornaVhjlGlK+hnt8Wdr5Xg1QQGA1QLbFJuh4hTrETBStqiQK14="
 
         strategy:
             matrix:
