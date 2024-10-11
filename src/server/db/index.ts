@@ -6,7 +6,7 @@ import { User } from "./schemas/userSchema";
 
 // TS helper to extract Model type from Schema
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ExtractModel<T extends Schema<any>> =
+export type ExtractModel<T extends Schema<any>> =
     T extends Schema<infer U> ? U : never;
 
 export const Models = {
@@ -18,6 +18,7 @@ export type Model = (typeof Models)[keyof typeof Models];
 
 type Params = Record<string, unknown>;
 
+export type ValidationResult<T> = Result<T, mongoose.Error.ValidationError>;
 /**
  * Runs validated DB operations with try/catch and returns it as Result
  * @param f function to run
@@ -25,7 +26,7 @@ type Params = Record<string, unknown>;
  */
 const runSafe = async <Ok>(
     f: () => Promise<Ok>,
-): Promise<Result<Ok, mongoose.Error.ValidationError>> => {
+): Promise<ValidationResult<Ok>> => {
     try {
         return ok(await f());
     } catch (e) {
@@ -43,13 +44,11 @@ export async function getById<T>(model: Schema<T>, id: unknown) {
     return await model.findById(id);
 }
 
-export async function create<T>(
-    model: Schema<T>,
-    data: ExtractModel<Schema<T>>,
-) {
+export async function create<T>(model: Schema<T>, data: unknown) {
     return await runSafe(async () => {
         const newEntry = new model(data);
-        return await newEntry.save();
+        await newEntry.save();
+        return newEntry;
     });
 }
 
