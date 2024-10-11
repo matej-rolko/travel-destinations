@@ -35,7 +35,7 @@ const parseMongoose = <Body>(
 ): ParseResult<Body> => {
     const parsed = new (schema as mongoose.Model<Body>)(data);
     const maybe_err = parsed.validateSync();
-    if (maybe_err != null) return err();
+    if (maybe_err != null) return err(maybe_err);
     return { success: true, data: parsed };
 };
 
@@ -45,14 +45,15 @@ const parseZod = <Body>(
 ): ParseResult<Body> => {
     const maybe = schema.safeParse(data);
     if (!maybe.success) {
-        return err();
+        return err(maybe.error);
     }
     return { success: true, data: maybe.data };
 };
 
 const isModel = <Body>(
     schema: z.Schema<Body> | mongoose.Model<Body>,
-): schema is mongoose.Model<Body> => schema instanceof mongoose.Model;
+): schema is mongoose.Model<Body> =>
+    (schema as { prototype?: unknown })?.prototype instanceof mongoose.Model;
 
 export const parse = <Body>(
     schema: z.Schema<Body> | mongoose.Model<Body>,
@@ -67,7 +68,7 @@ export const makeEndpoint = <Body, RespOk, RespErr>(
         const _req = req as unknown as Request & { context?: Context };
         const maybe = parse(schema, req.body);
         if (!maybe.success) {
-            res.status(403).json(err("Wrong body!"));
+            res.status(403).json(maybe);
             return;
         }
         const { status, body } = await f(
