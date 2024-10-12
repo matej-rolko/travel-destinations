@@ -66,7 +66,6 @@ export async function update<T>(
 }
 
 // Named it del because delete is a reserved word
-
 export async function del<T>(model: Schema<T>, id: unknown) {
     return await model.findByIdAndDelete(id);
 }
