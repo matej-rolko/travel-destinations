@@ -62,15 +62,15 @@ export const authRouter = Router()
         "/signup",
         makeEndpoint(Models.User, async (body) => {
             const user = await signup(Models.User, body);
-            if (user == null) {
+            if (!user.success) {
                 return {
                     status: 400,
-                    body: err(AuthErrors.emailTaken),
+                    body: err(user.error),
                 };
             }
             return {
                 status: 200,
-                body: ok(user),
+                body: ok(user.data),
             };
         }),
     )
