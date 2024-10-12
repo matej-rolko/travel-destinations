@@ -86,7 +86,7 @@ async function signUp(
         created &&
         isAdmin
     ) {
-        const signUpUserDetails = new URLSearchParams({
+        const signUpUserDetails = JSON.stringify({
             first_name,
             last_name,
             email,
@@ -94,18 +94,21 @@ async function signUp(
             password,
             created,
             isAdmin,
-        }).toString();
+        })
 
         console.log(signUpUserDetails);
 
         try {
-            const response = await fetch("http://localhost:3000/api/v1/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+            const response = await fetch(
+                "http://localhost:3000/api/v1/auth/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: signUpUserDetails,
                 },
-                body: signUpUserDetails,
-            });
+            );
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,6 +116,8 @@ async function signUp(
 
             const result = await response.json();
             console.log("Success: ", result);
+
+            console.log(result.data.data.token)
 
             alert('"User has been succesfully created";');
             window.location.replace("./loginSignup.html");
@@ -125,6 +130,9 @@ async function signUp(
         console.log("Signup information is not valid");
     }
 }
+
+
+
 
 const switchToSignup = document.getElementById("switchToSignup");
 const switchToLogin = document.getElementById("switchToLogin");

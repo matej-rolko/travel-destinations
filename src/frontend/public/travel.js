@@ -13,14 +13,7 @@ async function getTravel() {
 
         result.data.forEach((d) => createTravelCard(d));
 
-        console.log(result.data)
-
-        // createCard(result.data);
-
-        // listAllTheTravelDestination(result.data);
-
         console.log(result.data);
-
         return result;
     } catch (e) {
         console.log(e);
@@ -31,8 +24,8 @@ getTravel();
 
 function createTravelCard(travel) {
     // Create the card container
-    const card = document.createElement('div');
-    card.classList.add('card');
+    const card = document.createElement("div");
+    card.classList.add("card");
 
     // Create the image element
     const img = document.createElement('img');
@@ -41,17 +34,17 @@ function createTravelCard(travel) {
     img.alt = travel.altText;
 
     // Create the card content container
-    const cardContent = document.createElement('div');
-    cardContent.classList.add('card-content');
+    const cardContent = document.createElement("div");
+    cardContent.classList.add("card-content");
 
     // Create the country element
-    const country = document.createElement('div');
-    country.classList.add('country');
+    const country = document.createElement("div");
+    country.classList.add("country");
     country.textContent = travel.country;
 
     // Create the visited date element
-    const visited = document.createElement('div');
-    visited.classList.add('visited');
+    const visited = document.createElement("div");
+    visited.classList.add("visited");
     visited.textContent = travel.visitedDates;
 
     // Create the title element
@@ -95,5 +88,72 @@ function createTravelCard(travel) {
     card.appendChild(cardContent);
 
     // Append the card to a container with id 'travel-cards-container'
-    document.getElementById('travels-cards').appendChild(card);
+    document.getElementById("travels-cards").appendChild(card);
+}
+
+// async function updateTravelDestination(e, destinationId) {
+//     e.preventDefault();
+
+//     const title = destinationForm["title"].value;
+//     const address = destinationForm["address"].value;
+//     const country = destinationForm["country"].value;
+//     const description = destinationForm["description"].value;
+//     //   const picture = destinationForm["picture"].files[0];
+
+//     if (
+//         title.trim() &&
+//         address.trim() &&
+//         country.trim() &&
+//         description.trim()
+//     ) {
+//         const travelDestination = {
+//             title,
+//             address,
+//             country,
+//             description,
+//         };
+
+//         try {
+//             const response = await fetch(`ww.w.com/${destinationId}`, {
+//                 method: "PUT",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//                 body: JSON.stringify(travelDestination),
+//             });
+
+//             if (!response.ok) {
+//                 throw new Error(`HTTP error! status: ${response.status}`);
+//             }
+
+//             const result = await response.json();
+//             console.log("Update successful", result);
+//         } catch (e) {
+//             console.log("Update unsuccessful", e);
+//         }
+//     } else {
+//         console.log("Please fill in all the required fields");
+//     }
+// }
+
+async function deleteTravelDestinations(destinationId) {
+    try {
+        const response = await fetch(
+            `http://localhost:3000/api/v1/destinations/${destinationId}`,
+            {
+                method: "DELETE",
+            },
+        );
+
+        if (!response.ok) {
+            throw new Error(`Http error! statuscode: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Delete successful", result);
+        alert("User has been succesfully deleted");
+        window.location.replace("./travel.html");
+    } catch (e) {
+        console.log("Delete unsuccessful", e);
+    }
 }
