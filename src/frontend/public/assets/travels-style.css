@@ -62,7 +62,7 @@ body {
 }
 
 .country:before {
-    content: "📍";
+    content: '📍';
 }
 
 .visited {
@@ -76,8 +76,8 @@ body {
     padding: 3px 9px;
     font-size: 12px;
 }
-
-.visited::before {
+ 
+.visited::before{
     content: "👁️ ";
 }
 
@@ -126,4 +126,12 @@ body {
     display: inline-block; 
     cursor: pointer;
     margin-top: 10px; 
+}
+
+.edit-button:hover {
+    transform: scale(1.1); 
+}
+
+.delete-button:hover {
+    transform: scale(1.1); 
 }
