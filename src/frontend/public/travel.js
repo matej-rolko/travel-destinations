@@ -36,7 +36,7 @@ function createTravelCard(travel) {
 
     // Create the image element
     const img = document.createElement('img');
-    img.classList.add('card', 'img');
+    img.classList.add("card-img");
     img.src = './images/copenhagen.jpg';
     img.alt = travel.altText;
 
@@ -55,32 +55,40 @@ function createTravelCard(travel) {
     visited.textContent = travel.visitedDates;
 
     // Create the title element
-    const title = document.createElement('div');
-    title.classList.add('title');
+    const title = document.createElement('a');
+    title.classList.add('card-title');
     title.textContent = travel.title;
+    title.href = "#";
 
     // Create the description element
     const description = document.createElement('div');
     description.classList.add('description');
-    description.textContent = travel.description;
+    description.textContent = travel.description + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut posuere nulla. Vestibulum viverra ipsum eget odio facilisis, ornare vehicula orci tincidunt. Etiam eu aliquet eros.";
 
-     // Create the update button element
-     const updateBtn = document.createElement("button");
-     updateBtn.classList.add('button');
-     updateBtn.textContent = "Update";
+    // Create the update button element
+    const updateBtn = document.createElement("button");
+    updateBtn.classList.add('button');
+    updateBtn.textContent = "Update";
 
-     // Create the delete button element
-     const deleteBtn = document.createElement("button");
-     deleteBtn.classList.add('button');
-     deleteBtn.textContent = "Delete";
+    const editButton = document.createElement('img');
+    editButton.classList.add("edit-button");
+    editButton.src = "./images/edit-icon.png";
+    editButton.title = "Edit";
+
+    const deleteButton = document.createElement('img');
+    deleteButton.classList.add("delete-button");
+    deleteButton.src = "./images/delete-icon.png";
+    deleteButton.title = "Delete";
 
     // Append elements to the card content
     cardContent.appendChild(country);
     cardContent.appendChild(visited);
     cardContent.appendChild(title);
     cardContent.appendChild(description);
-    cardContent.appendChild(updateBtn)
-    cardContent.appendChild(deleteBtn)
+    
+
+    cardContent.appendChild(editButton)
+    cardContent.appendChild(deleteButton)
 
     // Append the image and card content to the card
     card.appendChild(img);
