@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-async function getTravel() {
+async function getDestinations() {
     try {
         const response = await fetch(
             "http://localhost:3000/api/v1/destinations",
@@ -12,11 +12,6 @@ async function getTravel() {
         const result = await response.json();
 
         result.data.forEach((d) => createCard(d));
-
-        // createCard(result.data);
-
-        // listAllTheTravelDestination(result.data);
-
         console.log(result.data);
 
         return result;
@@ -25,7 +20,7 @@ async function getTravel() {
     }
 }
 
-getTravel();
+getDestinations();
 
 function createCard(destination) {
     // Create card container

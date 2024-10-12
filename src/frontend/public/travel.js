@@ -1,3 +1,34 @@
+/* eslint-disable no-undef */
+async function getTravel() {
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/v1/destinations",
+        );
+
+        if (!response.ok) {
+            throw new Error(`Http error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        result.data.forEach((d) => createTravelCard(d));
+
+        console.log(result.data)
+
+        // createCard(result.data);
+
+        // listAllTheTravelDestination(result.data);
+
+        console.log(result.data);
+
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+getTravel();
+
 function createTravelCard(travel) {
     // Create the card container
     const card = document.createElement('div');
@@ -6,7 +37,7 @@ function createTravelCard(travel) {
     // Create the image element
     const img = document.createElement('img');
     img.classList.add('card', 'img');
-    img.src = travel.imageSrc;
+    img.src = './images/copenhagen.jpg';
     img.alt = travel.altText;
 
     // Create the card content container
@@ -33,16 +64,28 @@ function createTravelCard(travel) {
     description.classList.add('description');
     description.textContent = travel.description;
 
+     // Create the update button element
+     const updateBtn = document.createElement("button");
+     updateBtn.classList.add('button');
+     updateBtn.textContent = "Update";
+
+     // Create the delete button element
+     const deleteBtn = document.createElement("button");
+     deleteBtn.classList.add('button');
+     deleteBtn.textContent = "Delete";
+
     // Append elements to the card content
     cardContent.appendChild(country);
     cardContent.appendChild(visited);
     cardContent.appendChild(title);
     cardContent.appendChild(description);
+    cardContent.appendChild(updateBtn)
+    cardContent.appendChild(deleteBtn)
 
     // Append the image and card content to the card
     card.appendChild(img);
     card.appendChild(cardContent);
 
     // Append the card to a container with id 'travel-cards-container'
-    document.getElementById('travel-cards-container').appendChild(card);
+    document.getElementById('travels-cards').appendChild(card);
 }
