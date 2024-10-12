@@ -1,4 +1,3 @@
-
 /* eslint-disable no-undef */
 function createTravelCard(travel) {
     // Create the card container
@@ -6,9 +5,9 @@ function createTravelCard(travel) {
     card.classList.add("card");
 
     // Create the image element
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.classList.add("card-img");
-    img.src = './images/copenhagen.jpg';
+    img.src = "./images/copenhagen.jpg";
     img.alt = travel.altText;
 
     // Create the card content container
@@ -26,36 +25,39 @@ function createTravelCard(travel) {
     visited.textContent = travel.visitedDates;
 
     // Create the title element
-    const title = document.createElement('a');
-    title.classList.add('card-title');
+    const title = document.createElement("a");
+    title.classList.add("card-title");
     title.textContent = travel.title;
     title.href = "#";
 
     // Create the description element
-    const description = document.createElement('div');
-    description.classList.add('description');
-    description.textContent = travel.description + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut posuere nulla. Vestibulum viverra ipsum eget odio facilisis, ornare vehicula orci tincidunt. Etiam eu aliquet eros.";
+    const description = document.createElement("div");
+    description.classList.add("description");
+    description.textContent =
+        travel.description +
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut posuere nulla. Vestibulum viverra ipsum eget odio facilisis, ornare vehicula orci tincidunt. Etiam eu aliquet eros.";
 
-    const editButton = document.createElement('img');
+    const editButton = document.createElement("img");
     editButton.classList.add("edit-button");
     editButton.src = "./images/edit-icon.png";
     editButton.title = "Edit";
 
-    const deleteButton = document.createElement('img');
+    const deleteButton = document.createElement("img");
     deleteButton.classList.add("delete-button");
     deleteButton.src = "./images/delete-icon.png";
     deleteButton.title = "Delete";
-    deleteButton.addEventListener("click", ()=> deleteTravelDestinations(travel._id));
+    deleteButton.addEventListener("click", () =>
+        deleteTravelDestinations(travel._id),
+    );
 
     // Append elements to the card content
     cardContent.appendChild(country);
     cardContent.appendChild(visited);
     cardContent.appendChild(title);
     cardContent.appendChild(description);
-    
 
-    cardContent.appendChild(editButton)
-    cardContent.appendChild(deleteButton)
+    cardContent.appendChild(editButton);
+    cardContent.appendChild(deleteButton);
 
     // Append the image and card content to the card
     card.appendChild(img);
@@ -96,17 +98,16 @@ async function getTravel() {
 }
 getTravel();
 
-
-const destinationForm = document.getElementById("destinationForm");
-destinationForm.addEventListener("submit", (e) => postTravelDestinations(e));
+const travelForm = document.getElementById("travelForm");
+travelForm.addEventListener("submit", (e) => postTravelDestinations(e));
 
 async function postTravelDestinations(e) {
     e.preventDefault();
 
-    const title = destinationForm["title"].value;
-    const address = destinationForm["address"].value;
-    const country = destinationForm["country"].value;
-    const description = destinationForm["description"].value;
+    const title = travelForm["title"].value;
+    const address = travelForm["address"].value;
+    const country = travelForm["country"].value;
+    const description = travelForm["description"].value;
     //   const picture = destinationForm["picture"].files[0];
 
     if (
@@ -124,11 +125,13 @@ async function postTravelDestinations(e) {
         }).toString();
 
         try {
+            const token = getCookie("token");
             const response = await fetch(
                 "http://localhost:3000/api/v1/destinations",
                 {
                     method: "POST",
                     headers: {
+                        token: token,
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
                     body: travelDestination,
@@ -198,12 +201,12 @@ async function postTravelDestinations(e) {
 async function deleteTravelDestinations(destinationId) {
     try {
         const token = getCookie("token");
-        
+
         const response = await fetch(
             `http://localhost:3000/api/v1/destinations/${destinationId}`,
             {
                 method: "DELETE",
-                headers: {token: token}
+                headers: { token: token },
             },
         );
 
