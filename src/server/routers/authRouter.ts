@@ -3,7 +3,6 @@ import { Router } from "express";
 import z from "zod";
 import { Models } from "~/db";
 import {
-    AuthErrors,
     login,
     signup,
     TokenUnverified,
