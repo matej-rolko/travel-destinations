@@ -34,22 +34,23 @@
         </div>
 
         <!-- update form -->
-        <div class="sub-hero">
-            <div class="hero-sub-content">
+        <div class="card">
                 <form action="/" method="post" id="travelForm">
-                    <h2>Add new travel hitory in your diary</h2>
+                    <h2>Add new travel entry into your diary</h2>
                     <input type="text" name="title" id="title" placeholder="Title" required>
                     <input type="text" name="address" id="address" placeholder="Address" required>
                     <input type="text" name="country" id="country" placeholder="Country" required>
-                    <textarea  name="description" id="description" placeholder="Description" rows="4" required ></textarea> <br>
+                    <input type="date" name="datefrom" id="datefrom" placeholder="Date from" required>
+                    <input type="date" name="dateto" id="dateto" placeholder="Date to" required>
+
+                    <textarea  name="description" id="description" placeholder="Your entry..." required ></textarea> <br>
                     
                     <!-- <input type="file" accept="image/*" name="picture" id="picture" > -->
-                    <button type="submit">Submit</button>
+                    <button class="submit-button" type="submit">Submit</button>
                 </form>
-            </div>
         </div>
     </div>
-</div>
+    <button class="add-button" title="Crete new">+</button>
     <footer>
         <p>2024 &copy; Travel Diary</p>
         <p>by Adam Schulz, Bartosz Birylo, Matej Rolko & Nayeem Hossain</p>

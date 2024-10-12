@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -134,4 +134,103 @@ body {
 
 .delete-button:hover {
     transform: scale(1.1); 
+}
+
+.add-button {
+    border-radius: 50%;
+    border: none;
+    bottom: 32px;
+    cursor: pointer;
+    height: 56px;
+    position: fixed;
+    -webkit-transition-duration: .25s;
+    transition-duration: .25s;
+    -webkit-transition-property: background-color, -webkit-box-shadow;
+    right: 32px;
+    transition-property: background-color, -webkit-box-shadow;
+    transition-property: background-color, box-shadow;
+    transition-property: background-color, box-shadow, -webkit-box-shadow;
+    width: 56px;
+    z-index: 2;
+    background-color: #FFC300;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px, rgba(0, 0, 0, 0.25) 0px 3px 5px -1px;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.add-button:hover {
+    transform: scale(1.05); 
+    font-size: 44px;
+    font-weight: 520;
+}
+
+#travelForm {
+    display: block;
+    position: relative;
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;  
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+#travelForm h2 {
+    margin-bottom: 25px;
+}
+
+#travelForm input{
+    height: 2rem;
+    width: 100%;
+    margin: 20px auto;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+
+    display: block;
+    padding: 4px 2px;
+    width: 70%;
+}
+
+textarea {
+    width: 70%; /* Takes full width of the parent container */
+    height: 6rem; /* Sets a fixed height */
+    padding: 10px; /* Adds padding inside the textarea */
+    border: 1px solid #ccc; /* Adds a light border */
+    border-radius: 5px; /* Rounds the corners */
+    font-size: 16px; /* Adjusts font size */
+    font-family: Arial, sans-serif; /* Sets the font */
+    line-height: 1.5; /* Increases the space between lines */
+    resize: none; /* Allows vertical resizing but disables horizontal */
+    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
+    background-color: #f9f9f9; /* Light background color */
+    color: #333; /* Text color */
+    outline: none; /* Removes the default outline when focused */
+    display: block;
+    margin: 0 auto 20px auto; /* Centers the textarea */
+    background-color: white;
+}
+
+#travelForm button {
+    color: white;
+    background-color: var(--bright-gold);
+    height: 2.5rem;
+    width: 35%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px auto 25px auto;
+    border-radius: 5px;
+    border: none;
+    display: block;
+    box-shadow: 0 0 0 1px var(--dark-gold), 0 0.25em 0 0 rgba(0,0,0,0.19);
+}
+
+#travelForm button:hover {
+    background-color: var(--bright-gold);
+    box-shadow: 0 0 0 1px rgba(70, 74, 10, 0.8), 0 0.35em 0 0 rgba(0,0,0,0.19);
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    transform: translate(0, 25px, -25px);
+ 
 }
