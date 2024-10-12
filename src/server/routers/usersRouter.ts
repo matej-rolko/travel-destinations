@@ -1,10 +1,11 @@
 import { ok } from "$shared/result";
 import express from "express";
 import { create, del, getAll, getById, Models, update } from "~/db";
+import { authMiddleware } from "~/middlewares/auth";
 
 const { User } = Models;
 
-export const router = express.Router();
+export const router = express.Router().use(authMiddleware);
 
 // get all
 router.get("/", async (req, res) => {

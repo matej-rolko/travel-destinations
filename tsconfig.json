@@ -22,7 +22,7 @@
         "rootDir": "./src/",
         "baseUrl": "./src/server",
         "paths": {
-            // "$lib/*": ["lib/*"],
+            "$lib/*": ["lib/*"],
             "~/*": ["./*"],
             "$env": ["./env"],
             "$shared/*": ["../shared/*"]
