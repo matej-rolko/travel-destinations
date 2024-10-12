@@ -1,3 +1,4 @@
+
 /* eslint-disable no-undef */
 function createTravelCard(travel) {
     // Create the card container
@@ -35,11 +36,6 @@ function createTravelCard(travel) {
     description.classList.add('description');
     description.textContent = travel.description + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut posuere nulla. Vestibulum viverra ipsum eget odio facilisis, ornare vehicula orci tincidunt. Etiam eu aliquet eros.";
 
-    // Create the update button element
-    const updateBtn = document.createElement("button");
-    updateBtn.classList.add('button');
-    updateBtn.textContent = "Update";
-
     const editButton = document.createElement('img');
     editButton.classList.add("edit-button");
     editButton.src = "./images/edit-icon.png";
@@ -49,6 +45,7 @@ function createTravelCard(travel) {
     deleteButton.classList.add("delete-button");
     deleteButton.src = "./images/delete-icon.png";
     deleteButton.title = "Delete";
+    deleteButton.addEventListener("click", ()=> deleteTravelDestinations(travel._id));
 
     // Append elements to the card content
     cardContent.appendChild(country);
@@ -200,10 +197,13 @@ async function postTravelDestinations(e) {
 
 async function deleteTravelDestinations(destinationId) {
     try {
+        const token = getCookie("token");
+        
         const response = await fetch(
             `http://localhost:3000/api/v1/destinations/${destinationId}`,
             {
                 method: "DELETE",
+                headers: {token: token}
             },
         );
 
