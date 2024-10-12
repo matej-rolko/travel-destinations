@@ -1,32 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Diary - Home</title>
-    <link rel="stylesheet" href="../assets/style.css">
-    <link rel="stylesheet" href="../assets/global.css">
-    <link rel="stylesheet" href="./loginSignup.css">
-    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="row">
-        <nav>
-            <ul class="nav-links column">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../destinations.html" >Destinations</a></li>
-                <li><a href="../travel.html" >Travels</a></li>
-            </ul>
-            <div class="logo column">
-                <h1>Travel Diary</h1>
-            </div>
-            <ul class="nav-links column">
-                <li><a href="#">Profile</a></li>
-                <li><a href="./loginSignup/loginSignup.html" class="active">Log in</a></li>
-            </ul>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Travel Diary - Home</title>
+        <link rel="stylesheet" href="../assets/style.css" />
+        <link rel="stylesheet" href="../assets/global.css" />
+        <link rel="stylesheet" href="./loginSignup.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header class="row">
+            <nav>
+                <ul class="nav-links column">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../destinations.html">Destinations</a></li>
+                    <li><a href="../travel.html">Travels</a></li>
+                </ul>
+                <div class="logo column">
+                    <h1>Travel Diary</h1>
+                </div>
+                <ul class="nav-links column">
+                    <li><a href="#">Profile</a></li>
+                    <li>
+                        <a
+                            href="./loginSignup/loginSignup.html"
+                            id="navLogInOutBtn"
+                            class="active"
+                        ></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
         <div class="map-left"></div>
         <div class="map-right"></div>
@@ -36,21 +48,26 @@
                 <form action="/" method="post" id="loginForm">
                     <h2>Log In</h2>
                     <input
-                        type="text"
-                        class="username"
-                        placeholder="username"
+                        type="email"
+                        class="email"
+                        name="email"
+                        placeholder="Email"
                         required
                     />
                     <br />
                     <input
                         type="password"
                         class="password"
-                        placeholder="password"
+                        name="password"
+                        placeholder="Password"
                         required
                     />
                     <br />
+
+                    <p id="loginFormMsg"></p>
+
                     <button type="submit" id="submitBtn">Log In</button>
-                    <!-- <button id="signupBtn"> Sign Up</button> -->
+
                     <p>
                         Don't have an account? Let's
                         <a href="#" id="switchToSignup">Sign up</a>
@@ -104,7 +121,8 @@
                 </form>
             </div>
         </section>
-
+        
+        <script src="../assets/global.js"></script>
         <script src="./loginSignup.js"></script>
     </body>
 </html>

@@ -34,7 +34,6 @@ body {
     transform: scale(1.01); /* Slight zoom effect on hover */
 }
 
-
 .card img {
     width: 40%;
     max-width: 240px;
@@ -59,7 +58,7 @@ body {
 }
 
 .country:before {
-    content: '📍';
+    content: "📍";
 }
 
 .visited {
@@ -73,8 +72,8 @@ body {
     padding: 3px 9px;
     font-size: 12px;
 }
- 
-.visited::before{
+
+.visited::before {
     content: "👁️ ";
 }
 
@@ -94,4 +93,41 @@ body {
     font-size: 14px;
     color: #333;
     margin-top: 10px;
+}
+
+#travelForm {
+    display: block;
+    position: relative;
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+#travelForm h2 {
+    margin-bottom: 25px;
+}
+
+#travelForm input {
+    height: 2rem;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#travelForm button {
+    height: 2rem;
+    width: 30%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#travelForm textarea {
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 18px;
+    text-align: center;
 }

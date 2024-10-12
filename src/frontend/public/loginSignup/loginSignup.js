@@ -1,38 +1,51 @@
 /* eslint-disable no-undef */
 const loginForm = document.getElementById("loginForm");
+const loginFormMsg = document.getElementById("loginFormMsg");
 
 loginForm.addEventListener("submit", (e) => handleLogin(e));
 
 function handleLogin(e) {
     e.preventDefault();
 
-    const username = loginForm["username"];
-    const password = loginForm["password"];
+    const email = loginForm["email"].value;
+    const password = loginForm["password"].value;
 
-    authenticateUser(username, password);
+    console.log({ email, password });
+
+    authenticateUser(email, password);
 }
 
-async function authenticateUser(username, password) {
-    if (username.trim() && password.trim()) {
+async function authenticateUser(email, password) {
+    if (email.trim() && password.trim()) {
         try {
-            const response = await fetch("ww.ww.com", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const response = await fetch(
+                "http://localhost:3000/api/v1/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
                 },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
-            });
+            );
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
             const result = await response.json();
             console.log("Login successful:", result);
+
+            document.cookie = `token=${result.data.token}; path=/; secure; SameSite=Strict;`;
+            window.location.replace("../travel.html");
         } catch (error) {
             console.log("Login failed:", error);
+            loginFormMsg.style.color = "red";
+            loginFormMsg.innerText =
+                "Could not find the corresponding user! Try again with correct credentials.";
         }
     }
 }
@@ -94,7 +107,7 @@ async function signUp(
             password,
             created,
             isAdmin,
-        })
+        });
 
         console.log(signUpUserDetails);
 
@@ -115,12 +128,10 @@ async function signUp(
             }
 
             const result = await response.json();
-            console.log("Success: ", result);
 
-            console.log(result.data.data.token)
-
+            document.cookie = `token=${result.data.token}; path=/; secure; SameSite=Strict;`;
             alert('"User has been succesfully created";');
-            window.location.replace("./loginSignup.html");
+            window.location.replace("../travel.html");
         } catch (e) {
             console.log("Unsuccessfull: ", e);
             signUpFormMsg.style.color = "red";
@@ -130,9 +141,6 @@ async function signUp(
         console.log("Signup information is not valid");
     }
 }
-
-
-
 
 const switchToSignup = document.getElementById("switchToSignup");
 const switchToLogin = document.getElementById("switchToLogin");

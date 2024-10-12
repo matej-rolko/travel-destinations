@@ -1,27 +1,4 @@
 /* eslint-disable no-undef */
-async function getTravel() {
-    try {
-        const response = await fetch(
-            "http://localhost:3000/api/v1/destinations",
-        );
-
-        if (!response.ok) {
-            throw new Error(`Http error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        result.data.forEach((d) => createTravelCard(d));
-
-        console.log(result.data);
-        return result;
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-getTravel();
-
 function createTravelCard(travel) {
     // Create the card container
     const card = document.createElement("div");
@@ -84,6 +61,91 @@ function createTravelCard(travel) {
 
     // Append the card to a container with id 'travel-cards-container'
     document.getElementById("travels-cards").appendChild(card);
+}
+
+async function getTravel() {
+    try {
+        const token = getCookie("token");
+
+        const response = await fetch(
+            "http://localhost:3000/api/v1/destinations",
+            {
+                method: "GET",
+                headers: {
+                    token: token,
+                    "Content-Type": "application/json",
+                },
+            },
+        );
+
+        if (!response.ok) {
+            throw new Error(`Http error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        result.data.forEach((d) => createTravelCard(d));
+
+        console.log(result.data);
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
+}
+getTravel();
+
+
+const destinationForm = document.getElementById("destinationForm");
+destinationForm.addEventListener("submit", (e) => postTravelDestinations(e));
+
+async function postTravelDestinations(e) {
+    e.preventDefault();
+
+    const title = destinationForm["title"].value;
+    const address = destinationForm["address"].value;
+    const country = destinationForm["country"].value;
+    const description = destinationForm["description"].value;
+    //   const picture = destinationForm["picture"].files[0];
+
+    if (
+        title.trim() &&
+        address.trim() &&
+        country.trim() &&
+        description.trim()
+    ) {
+        const travelDestination = new URLSearchParams({
+            title,
+            address,
+            country,
+            description,
+            image_url: "blank/blank",
+        }).toString();
+
+        try {
+            const response = await fetch(
+                "http://localhost:3000/api/v1/destinations",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: travelDestination,
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Post successfull", result);
+            window.location.reload(true);
+        } catch (e) {
+            console.log("Post unsuccessfull", e);
+        }
+    } else {
+        console.log("Please fill in all the required fields");
+    }
 }
 
 // async function updateTravelDestination(e, destinationId) {
