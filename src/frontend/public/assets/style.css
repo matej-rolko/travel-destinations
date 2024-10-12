@@ -46,8 +46,8 @@ nav {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+    position: absolute;
+   right: 35%;
 }
 
 .logo h1 {
@@ -122,7 +122,6 @@ nav {
     background-size: 350px;
     background-position: left 0 top 125px;
 }
-
 .hero {
     background-size: cover;
     background-position: center;
