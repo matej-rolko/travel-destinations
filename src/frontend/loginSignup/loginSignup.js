@@ -1,104 +1,144 @@
+/* eslint-disable no-undef */
 const loginForm = document.getElementById("loginForm");
 
 loginForm.addEventListener("submit", (e) => handleLogin(e));
 
 function handleLogin(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const username = loginForm["username"];
-  const password = loginForm["password"];
+    const username = loginForm["username"];
+    const password = loginForm["password"];
 
-  authenticateUser(username, password);
+    authenticateUser(username, password);
 }
 
 async function authenticateUser(username, password) {
-  if (username.trim() && password.trim()) {
-    try {
-      const response = await fetch("ww.ww.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
+    if (username.trim() && password.trim()) {
+        try {
+            const response = await fetch("ww.ww.com", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      console.log("Login successful:", result);
-    } catch (e) {
-      console.log("Login failed:", error);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log("Login successful:", result);
+        } catch (error) {
+            console.log("Login failed:", error);
+        }
     }
-  }
 }
-
 
 //  Signup Functionilities
 const signupForm = document.getElementById("signupForm");
+const signUpFormMsg = document.getElementById("signUpFormMsg");
 
-signupForm.addEventListener("submit", (e) => signUp(e));
+signupForm.addEventListener("submit", (e) => handleSignup(e));
 
-function signup(e) {
-  e.preventDefault();
+function handleSignup(e) {
+    e.preventDefault();
 
-  const firstName = form["firstName"].value;
-  const lastName = form["lastName"].value;
-  const username = form["username"].value;
-  const password = form["password"].value;
+    const first_name = document.getElementById("first_name").value;
+    const last_name = document.getElementById("last_Name").value;
+    const email = document.getElementById("email").value;
+    const username = document.getElementById("SignUpUsername").value;
+    const password = document.getElementById("SignUpPassword").value;
+    const created = new Date().toISOString();
+    const isAdmin = true;
 
-  signUp(firstName, lastName, username, password);
+    console.log(username);
+
+    signUp(first_name, last_name, email, username, password, created, isAdmin);
 }
 
-async function signUp(firstName, lastName, username, password) {
-  if (
-    firstName.trim() &&
-    lastName.trim() &&
-    username.trim() &&
-    password.trim()
-  ) {
-    try {
-      const response = await fetch("www.dd.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signUpUserDetails),
-      });
+async function signUp(
+    first_name,
+    last_name,
+    email,
+    username,
+    password,
+    created,
+    isAdmin,
+) {
+    console.log({
+        first_name,
+        last_name,
+        email,
+        username,
+        password,
+        created,
+        isAdmin,
+    });
+    if (
+        first_name.trim() &&
+        last_name.trim() &&
+        email &&
+        username.trim() &&
+        password.trim() &&
+        created &&
+        isAdmin
+    ) {
+        const signUpUserDetails = new URLSearchParams({
+            first_name,
+            last_name,
+            email,
+            username,
+            password,
+            created,
+            isAdmin,
+        }).toString();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        console.log(signUpUserDetails);
 
-      const result = await response.json();
-      console.log("Success: ", result);
-    } catch (e) {
-      console.log("Unsuccessfull: ", e);
+        try {
+            const response = await fetch("http://localhost:3000/api/v1/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: signUpUserDetails,
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Success: ", result);
+
+            alert('"User has been succesfully created";');
+            window.location.replace("./loginSignup.html");
+        } catch (e) {
+            console.log("Unsuccessfull: ", e);
+            signUpFormMsg.style.color = "red";
+            signUpFormMsg.innerText = e;
+        }
+    } else {
+        console.log("Signup information is not valid");
     }
-  } else {
-    console.log("Signup information is not valid");
-  }
 }
 
-
-
-
-const switchToSignup = document.getElementById('switchToSignup');
-const switchToLogin = document.getElementById('switchToLogin');
+const switchToSignup = document.getElementById("switchToSignup");
+const switchToLogin = document.getElementById("switchToLogin");
 
 // Switch to Signup Form
-switchToSignup.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    loginForm.style.display = 'none'; // Hide Login Form
-    signupForm.style.display = 'block'; // Show Signup Form
+switchToSignup.addEventListener("click", (e) => {
+    e.preventDefault();
+    loginForm.style.display = "none"; // Hide Login Form
+    signupForm.style.display = "block"; // Show Signup Form
 });
 
 // Switch to Login Form
-switchToLogin.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    signupForm.style.display = 'none'; // Hide Signup Form
-    loginForm.style.display = 'block'; // Show Login Form
+switchToLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    signupForm.style.display = "none"; // Hide Signup Form
+    loginForm.style.display = "block"; // Show Login Form
 });

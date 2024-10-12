@@ -1,6 +1,6 @@
-import express from "express";
-import { getAll, create, update, del, getById, Models } from "~/db";
 import { ok } from "$shared/result";
+import express from "express";
+import { create, del, getAll, getById, Models, update } from "~/db";
 
 const { User } = Models;
 
