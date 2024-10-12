@@ -41,6 +41,8 @@ async function logOut() {
         console.log("Login successful:", result);
         document.cookie =
             "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie =
+            "user_id=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         window.location.replace("/src/frontend/public/index.html");
     } catch (error) {
         console.log("Logout failed:", error);

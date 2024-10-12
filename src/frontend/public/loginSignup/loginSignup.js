@@ -40,6 +40,8 @@ async function authenticateUser(email, password) {
             console.log("Login successful:", result);
 
             document.cookie = `token=${result.data.token}; path=/; secure; SameSite=Strict;`;
+            document.cookie = `user_id=${result.data.user._id}; path=/; secure; SameSite=Strict`;
+
             window.location.replace("../travel.html");
         } catch (error) {
             console.log("Login failed:", error);

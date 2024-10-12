@@ -122,12 +122,14 @@ async function postTravelDestinations(e) {
             country,
             description,
             image_url: "blank/blank",
+            
         }).toString();
 
         try {
             const token = getCookie("token");
+            const user_id = getCookie('user_id');
             const response = await fetch(
-                "http://localhost:3000/api/v1/destinations",
+                `http://localhost:3000/api/v1/users/${user_id}/travels`,
                 {
                     method: "POST",
                     headers: {
