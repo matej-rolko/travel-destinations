@@ -52,7 +52,6 @@ export async function create<T>(model: Schema<T>, data: unknown) {
     });
 }
 
-
 export async function update<T>(
     model: Schema<T>,
     id: unknown,
