@@ -1,5 +1,5 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .container {
@@ -62,7 +62,7 @@ body {
 }
 
 .country:before {
-    content: '📍';
+    content: "📍";
 }
 
 .visited {
@@ -76,8 +76,8 @@ body {
     padding: 3px 9px;
     font-size: 12px;
 }
- 
-.visited::before{
+
+.visited::before {
     content: "👁️ ";
 }
 
@@ -93,7 +93,6 @@ body {
 
 .card-title:hover {
     text-decoration: underline;
-
 }
 
 .dates {
@@ -121,19 +120,19 @@ body {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    margin-right: 10px; 
-    object-fit: contain; 
-    display: inline-block; 
+    margin-right: 10px;
+    object-fit: contain;
+    display: inline-block;
     cursor: pointer;
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 .edit-button:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 .delete-button:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 .add-button {
@@ -143,50 +142,107 @@ body {
     cursor: pointer;
     height: 56px;
     position: fixed;
-    -webkit-transition-duration: .25s;
-    transition-duration: .25s;
-    -webkit-transition-property: background-color, -webkit-box-shadow;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    -webkit-transition-property:
+        background-color,
+        -webkit-box-shadow;
     right: 32px;
-    transition-property: background-color, -webkit-box-shadow;
+    transition-property:
+        background-color,
+        -webkit-box-shadow;
     transition-property: background-color, box-shadow;
-    transition-property: background-color, box-shadow, -webkit-box-shadow;
+    transition-property:
+        background-color,
+        box-shadow,
+        -webkit-box-shadow;
     width: 56px;
     z-index: 2;
-    background-color: #FFC300;
+    background-color: #ffc300;
     color: white;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px, rgba(0, 0, 0, 0.25) 0px 3px 5px -1px;
+    box-shadow:
+        rgba(0, 0, 0, 0.25) 0px 6px 10px 0px,
+        rgba(0, 0, 0, 0.12) 0px 1px 18px 0px,
+        rgba(0, 0, 0, 0.25) 0px 3px 5px -1px;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+#close-button {
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    height: 46px;
+    left: 93%;
+    top: 10px;
+    position: relative;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    -webkit-transition-property:
+        background-color,
+        -webkit-box-shadow;
+    transition-property:
+        background-color,
+        -webkit-box-shadow;
+    transition-property: background-color, box-shadow;
+    transition-property:
+        background-color,
+        box-shadow,
+        -webkit-box-shadow;
+    width: 46px;
+    z-index: 2;
+    background-color: #ffc300;
+    color: white;
+    box-shadow:
+        rgba(0, 0, 0, 0.25) 0px 6px 10px 0px,
+        rgba(0, 0, 0, 0.12) 0px 1px 18px 0px,
+        rgba(0, 0, 0, 0.25) 0px 3px 5px -1px;
     font-size: 40px;
     font-weight: 500;
 }
 
 .add-button:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
     font-size: 44px;
     font-weight: 520;
 }
+#close-button:hover {
+    transform: scale(1.05);
+    /* font-size: 44px; */
+    font-weight: 520;
+}
+
+#formCard {
+    /* display: none; */
+    position: absolute;
+    width: 60%;
+    height: 85vh;
+    left: 100%;
+    top: 12%;
+    transition: all ease-in-out 0.5s;
+}
 
 #travelForm {
-    display: block;
     position: relative;
-    width: 60%;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;  
+    text-align: center;
     padding: 20px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 #travelForm h2 {
     margin-bottom: 25px;
 }
 
-#travelForm input{
+#travelForm input {
     height: 2rem;
     width: 100%;
     margin: 20px auto;
     font-size: 18px;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     display: block;
     padding: 4px 2px;
@@ -224,13 +280,18 @@ textarea {
     border-radius: 5px;
     border: none;
     display: block;
-    box-shadow: 0 0 0 1px var(--dark-gold), 0 0.25em 0 0 rgba(0,0,0,0.19);
+    box-shadow:
+        0 0 0 1px var(--dark-gold),
+        0 0.25em 0 0 rgba(0, 0, 0, 0.19);
 }
 
 #travelForm button:hover {
     background-color: var(--bright-gold);
-    box-shadow: 0 0 0 1px rgba(70, 74, 10, 0.8), 0 0.35em 0 0 rgba(0,0,0,0.19);
-    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    box-shadow:
+        0 0 0 1px rgba(70, 74, 10, 0.8),
+        0 0.35em 0 0 rgba(0, 0, 0, 0.19);
+    transition:
+        transform 150ms cubic-bezier(0, 0, 0.58, 1),
+        box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
     transform: translate(0, 25px, -25px);
- 
 }

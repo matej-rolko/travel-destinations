@@ -1,62 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Diary - Home</title>
-    <link rel="stylesheet" href="../public/assets/style.css">
-    <link rel="stylesheet" href="../public/assets/travels-style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="row">
-        <nav>
-            <ul class="nav-links column">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="destinations.html" >Destinations</a></li>
-                <li><a href="travel.html" class="active">Travels</a></li>
-            </ul>
-            <div class="logo column">
-                <h1>Travel Diary</h1>
-            </div>
-            <ul class="nav-links column">
-                <li><a href="#">Profile</a></li>
-                <li><a  id="navLogInOutBtn" >Log in</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="title">Your Travels</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Travel Diary - Home</title>
+        <link rel="stylesheet" href="../public/assets/style.css" />
+        <link rel="stylesheet" href="../public/assets/travels-style.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header class="row">
+            <nav>
+                <ul class="nav-links column">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="travel.html" class="active">Travels</a></li>
+                </ul>
+                <div class="logo column">
+                    <h1>Travel Diary</h1>
+                </div>
+                <ul class="nav-links column">
+                    <li><a href="#">Profile</a></li>
+                    <li><a id="navLogInOutBtn">Log in</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            <div class="title">Your Travels</div>
 
-        <div id="travels-cards" class="card-list">
-            
-        </div>
+            <div id="travels-cards" class="card-list"></div>
 
-        <!-- update form -->
-        <div class="card">
+            <!-- update form -->
+            <div class="card" id="formCard">
+                <button id="close-button">
+                    &times;
+                </button>
+
                 <form action="/" method="post" id="travelForm">
                     <h2>Add new travel entry into your diary</h2>
-                    <input type="text" name="title" id="title" placeholder="Title" required>
-                    <input type="text" name="address" id="address" placeholder="Address" required>
-                    <input type="text" name="country" id="country" placeholder="Country" required>
-                    <input type="date" name="datefrom" id="datefrom" placeholder="Date from" required>
-                    <input type="date" name="dateto" id="dateto" placeholder="Date to" required>
+                    <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        placeholder="Title"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        placeholder="Address"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="country"
+                        id="country"
+                        placeholder="Country"
+                        required
+                    />
+                    <input
+                        type="date"
+                        name="dateFrom"
+                        id="datefrom"
+                        placeholder="Date from"
+                        required
+                    />
+                    <input
+                        type="date"
+                        name="dateTo"
+                        id="dateto"
+                        placeholder="Date to"
+                        required
+                    />
 
-                    <textarea  name="description" id="description" placeholder="Your entry..." required ></textarea> <br>
-                    
+                    <textarea
+                        name="description"
+                        id="description"
+                        placeholder="Your entry..."
+                        required
+                    ></textarea>
+                    <br />
+
                     <!-- <input type="file" accept="image/*" name="picture" id="picture" > -->
                     <button class="submit-button" type="submit">Submit</button>
                 </form>
+            </div>
         </div>
-    </div>
-    <button class="add-button" title="Crete new">+</button>
-    <footer>
-        <p>2024 &copy; Travel Diary</p>
-        <p>by Adam Schulz, Bartosz Birylo, Matej Rolko & Nayeem Hossain</p>
-    </footer>
+        <button class="add-button" id="addTravelBtn" title="Crete new">
+            +
+        </button>
+        <footer>
+            <p>2024 &copy; Travel Diary</p>
+            <p>by Adam Schulz, Bartosz Birylo, Matej Rolko & Nayeem Hossain</p>
+        </footer>
 
-    <script src="../public/assets/global.js"></script>
-    <script src="./travel.js"></script>
-</body>
+        <script src="../public/assets/global.js"></script>
+        <script src="./travel.js"></script>
+    </body>
 </html>

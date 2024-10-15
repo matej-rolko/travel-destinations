@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 const navLogInOutBtn = document.getElementById("navLogInOutBtn");
+const addTravelBtn = document.getElementById("addTravelBtn");
+const closeButton = document.getElementById("close-button");
+const formCard = document.getElementById("formCard");
 
 function navLogInOutBtnFunctionalities() {
     navLogInOutBtn.innerText = getCookie("token") ? "Log Out" : "Log in";
@@ -7,10 +10,12 @@ function navLogInOutBtnFunctionalities() {
     if (navLogInOutBtn.innerText === "Log Out") {
         navLogInOutBtn.style.cursor = "pointer";
         navLogInOutBtn.addEventListener("click", logOut);
+
         // navLogInOutBtn.href = "/src/frontend/public/index.html";
     } else {
         navLogInOutBtn.href =
             "/src/frontend/public/loginSignup/loginSignup.html";
+        addTravelBtn.style.display = "none";
     }
 }
 navLogInOutBtnFunctionalities();
@@ -57,3 +62,12 @@ function getCookie(name) {
     }
     return null;
 }
+
+// travel page things
+addTravelBtn.addEventListener("click", () => {
+    formCard.style.left = "20%";
+});
+
+closeButton.addEventListener("click", () => {
+    formCard.style.left = "100%";
+});

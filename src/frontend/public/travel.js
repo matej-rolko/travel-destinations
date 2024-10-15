@@ -42,6 +42,16 @@ function createTravelCard(travel) {
     editButton.src = "./images/edit-icon.png";
     editButton.title = "Edit";
 
+    editButton.addEventListener("click", () => {
+        editHandler(
+            travel.title,
+            travel.address,
+            travel.country,
+            travel.description,
+            travel.visitedDates,
+        );
+    });
+
     const deleteButton = document.createElement("img");
     deleteButton.classList.add("delete-button");
     deleteButton.src = "./images/delete-icon.png";
@@ -65,6 +75,19 @@ function createTravelCard(travel) {
 
     // Append the card to a container with id 'travel-cards-container'
     document.getElementById("travels-cards").appendChild(card);
+}
+
+const travelForm = document.getElementById("travelForm");
+
+function editHandler(title, address, country, description) {
+    formCard.style.left = "20%";
+
+    travelForm["title"].value = title;
+    travelForm["address"].value = address;
+    travelForm["country"].value = country;
+    travelForm["description"].value = description;
+    // travelForm["dateFrom"].
+    // travelForm["dateTo"].value;
 }
 
 async function getTravel() {
@@ -98,9 +121,6 @@ async function getTravel() {
 }
 getTravel();
 
-const travelForm = document.getElementById("travelForm");
-travelForm.addEventListener("submit", (e) => postTravelDestinations(e));
-
 async function postTravelDestinations(e) {
     e.preventDefault();
 
@@ -108,7 +128,18 @@ async function postTravelDestinations(e) {
     const address = travelForm["address"].value;
     const country = travelForm["country"].value;
     const description = travelForm["description"].value;
+    const date_from = travelForm["dateFrom"].value;
+    const date_to = travelForm["dateTo"].value;
     //   const picture = destinationForm["picture"].files[0];
+
+    console.log({
+        title,
+        address,
+        country,
+        description,
+        date_from,
+        date_to,
+    });
 
     if (
         title.trim() &&
@@ -122,12 +153,13 @@ async function postTravelDestinations(e) {
             country,
             description,
             image_url: "blank/blank",
-            
+            date_from,
+            date_to,
         }).toString();
 
         try {
             const token = getCookie("token");
-            const user_id = getCookie('user_id');
+            const user_id = getCookie("user_id");
             const response = await fetch(
                 `http://localhost:3000/api/v1/users/${user_id}/travels`,
                 {
@@ -154,6 +186,8 @@ async function postTravelDestinations(e) {
         console.log("Please fill in all the required fields");
     }
 }
+
+travelForm.addEventListener("submit", (e) => postTravelDestinations(e));
 
 // async function updateTravelDestination(e, destinationId) {
 //     e.preventDefault();

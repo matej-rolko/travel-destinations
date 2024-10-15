@@ -1,8 +1,16 @@
 /* eslint-disable no-undef */
 async function getDestinations() {
     try {
+        const token = getCookie("token");
+
         const response = await fetch(
             "http://localhost:3000/api/v1/destinations",
+            {
+                method: "GET",
+                headers: {
+                    token: token,
+                },
+            },
         );
 
         if (!response.ok) {
@@ -19,7 +27,6 @@ async function getDestinations() {
         console.log(e);
     }
 }
-
 getDestinations();
 
 function createCard(destination) {
