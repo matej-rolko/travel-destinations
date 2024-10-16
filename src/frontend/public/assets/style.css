@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    /* colors */
+    --main-black: rgb(21, 19, 19);
+    --main-light-gray: #857885ff;
+    --main-light: #ece8efff;
+    --main-green: rgb(94, 135, 69);
+    --dark-green: #4C6C37;
+    --main-gold: #daad1bff;
+    --bright-gold: #FFC300;
+    --bright-yellow: #ffed00;
+    --orange: #eb7000;
+    --dark-gold: #A38214;
+}
+
+*::before, *::after {
+    box-sizing: border-box;
+  }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    background: white;
+}
+
+header {
+    background: #fff;
+    padding: 12px;
+} header:after {
+    content: "";
+    display: block;
+    width: 85%;
+    margin: 0.75em auto 0;
+    border-bottom: solid #333 1px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+   right: 35%;
+}
+
+.logo h1 {
+    font-family: "Aleo", serif;
+    font-weight: 900;
+    color: black;
+    font-size: 40px;
+    font-weight: 600;  
+    text-align: center;
+    left: auto;
+    right: auto;  
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav ul {
+    flex-grow: 1;
+}
+
+.links-left li {
+    margin-left: 24px;
+}
+
+.links-right li {
+    margin-right: 24px;
+}
+
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--main-black);
+    font-size: 16px;
+    margin-left: 24px;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+    color: var(--main-gold);
+    transition: color 0.3s ease;
+}
+
+.map-left {
+    background-image: url("../images/map_left.png");
+    position: absolute;
+    z-index: -2;
+    filter: drop-shadow(10px 10px 4px #29292a53);
+    height: 120%;
+    width: 100%;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: right 0 top 125px;
+}
+
+.map-right {
+    background-image: url("../images/map_right.png");
+    position: absolute;
+    z-index: -2;
+    filter: drop-shadow(10px 10px 4px #29292a53);
+    height: 120%;
+    width: 100%;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: left 0 top 125px;
+}
+.hero {
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: var(--main-black);
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 60px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 45px;
+    line-height: 30px;
+}
+
+.cta-button {
+    padding: 15px 30px;
+    background-color: var(--bright-gold);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px var(--dark-gold), 0 0.25em 0 0 rgba(0,0,0,0.19);
+}
+
+.cta-button:hover {
+    background-color: var(--bright-gold);
+    box-shadow: 0 0 0 1px rgba(70, 74, 10, 0.8), 0 0.35em 0 0 rgba(0,0,0,0.19);
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    transform: translate(0, 25px, -25px);
+ 
+}
+
+.sub-hero {
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-sub-content {
+    width: 80vw;
+    text-align: left;
+    color: var(--main-black);
+    background: var(--main-light);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+footer {
+    background-color: #4a90e2;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+footer p {
+    margin: 0;
+}

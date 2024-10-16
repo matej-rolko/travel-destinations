@@ -1,12 +1,12 @@
 import { err } from "$shared/result";
 import { type Handler } from "express";
+import { Models } from "~/db";
 import {
     AuthErrors,
-    extractToken,
+    // extractToken,
     type UserWithToken,
     verifyToken,
 } from "~/lib/auth";
-import { Models } from "~/db";
 
 export type AuthCtx = UserWithToken;
 export type Context = {
@@ -18,7 +18,10 @@ type RequestWithAuthCtx = Request & {
 };
 
 export const authMiddleware: Handler = async (req, res, next) => {
-    const token = extractToken(req.headers);
+    // const token = extractToken(req.headers);
+    const { token } = req.headers;
+    // console.log(token);
+
     if (token == null) {
         console.warn("Authentication failed: no token");
         res.status(401).json(err(AuthErrors.wrongToken));

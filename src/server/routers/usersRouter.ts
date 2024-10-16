@@ -1,8 +1,8 @@
-import express from "express";
-import { getAll, create, update, del, getById, Models } from "~/db";
 import { ok } from "$shared/result";
-import { authMiddleware } from "~/middlewares/auth";
+import express from "express";
 import mongoose from "mongoose";
+import { create, del, getAll, getById, Models, update } from "~/db";
+import { authMiddleware } from "~/middlewares/auth";
 
 const { User, Destination } = Models;
 
@@ -49,7 +49,7 @@ router.post("/:id/travels", async (req, res) => {
         date_from: req.body.date_from,
         date_to: req.body.date_to,
     };
-    let newUser = await getById(User, req.params.id);
+    const newUser = await getById(User, req.params.id);
     if (!newUser) {
         return res.status(404).json({ error: "User not found" });
     }
