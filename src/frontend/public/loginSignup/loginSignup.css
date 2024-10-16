@@ -1,0 +1,107 @@
+.map-left {
+    background-image: url("../images/map_left.png");
+    position: absolute;
+    z-index: -2;
+    filter: drop-shadow(10px 10px 4px #29292a53);
+    height: 70vh;
+    width: 100%;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: right 0 top 125px;
+}
+
+.map-right {
+    background-image: url("../images/map_right.png");
+    position: absolute;
+    z-index: -2;
+    filter: drop-shadow(10px 10px 4px #29292a53);
+    height: 70vh;
+    width: 100%;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position: left 0 top 125px;
+}
+
+.sub-hero {
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-sub-content {
+    width: 40vw;
+    text-align: left;
+    color: var(--main-black);
+    background: var(--main-light);
+    padding: 30px 20px;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+#loginForm {
+    display: block;
+    position: relative;
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+#signupForm {
+    display: none;
+    position: relative;
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 25px;
+}
+
+input {
+    height: 2rem;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+button {
+    color: white;
+    background-color: var(--bright-gold);
+    height: 2.5rem;
+    width: 35%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px 0 25px 0;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 0 1px var(--dark-gold), 0 0.25em 0 0 rgba(0,0,0,0.19);
+}
+
+button:hover {
+    background-color: var(--bright-gold);
+    box-shadow: 0 0 0 1px rgba(70, 74, 10, 0.8), 0 0.35em 0 0 rgba(0,0,0,0.19);
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    transform: translate(0, 25px, -25px);
+ 
+}

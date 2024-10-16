@@ -4,11 +4,16 @@ import z from "zod";
 dotenv.config();
 
 const ENV_SCHEMA = z.object({
-    PORT: z.coerce.number().default(3000),
+    PORT: z.coerce.number().int().positive().default(3000),
     MONGO_URL: z.string().url().min(1),
+    AUTH_SECRET: z.string().min(64),
+    // https://github.com/vercel/ms
+    TOKEN_AGE: z.string().min(1).default("30m"),
     NODE_ENV: z
-        .enum(["development", "production"])
-        .optional()
+        .preprocess(
+            (x) => typeof x == "string" && x.toLowerCase(),
+            z.enum(["development", "production"]),
+        )
         .default("production"),
 });
 

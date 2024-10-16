@@ -2,19 +2,26 @@ import express from "express";
 import cors from "cors";
 import * as db from "~/db/mongoose";
 import { env } from "$env";
-import { destinationsRouter, healthcheckRouter } from "~/routers";
+import {
+    authRouter,
+    destinationsRouter,
+    healthcheckRouter,
+    usersRouter,
+} from "~/routers";
 import {
     errorHandler,
     logMiddleware,
     unknownRouteMiddleware,
 } from "~/middlewares";
-import { runServer } from "~/utils/server";
+import { runServer } from "~/lib/utils/server";
 
 const { PORT } = env;
 
 const APIRouter = express
     .Router()
     .use("/destinations", destinationsRouter)
+    .use("/users", usersRouter)
+    .use("/auth", authRouter)
     .use("/healthcheck", healthcheckRouter)
     .use(unknownRouteMiddleware(true));
 

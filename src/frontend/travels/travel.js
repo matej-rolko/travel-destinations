@@ -222,3 +222,4 @@ async function deleteTravelDestinations(destinationId) {
     console.log("Delete unsuccessful");
   }
 }
+

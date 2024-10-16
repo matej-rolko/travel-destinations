@@ -1,10 +1,11 @@
 import express from "express";
-import { create, getAll, getById, Models } from "~/db";
+import { create, getAll, getById, Models, update, del } from "~/db";
 import { ok } from "$shared/result";
+import { authMiddleware } from "~/middlewares/auth";
 
 const { Destination } = Models;
 
-export const router = express.Router();
+export const router = express.Router().use(authMiddleware);
 
 // get all
 router.get("/", async (req, res) => {
@@ -18,17 +19,17 @@ router.get("/:id", async (req, res) => {
 
 //create
 router.post("/", async (req, res) => {
-    res.status(201).json(ok(await create(Destination, req.body)));
+    const result = await create(Destination, req.body);
+    res.status(result.success ? 201 : 422).json(result);
 });
 
 //update
-router.put("/:id", (_req, _res) => {
-    // console.log("params", req.params);
-    // res.send(req.params)
+router.put("/:id", async (req, res) => {
+    const result = await update(Destination, req.params.id, req.body);
+    res.status(result.success ? 201 : 422).json(result);
 });
 
 //delete
-router.delete("/:id", (_req, _res) => {
-    // console.log("params", req.params);
-    // res.send('Hello World! This is so much better now!')
+router.delete("/:id", async (req, res) => {
+    res.status(200).json(ok(await del(Destination, req.params.id)));
 });

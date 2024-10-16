@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "bin": "./dist/server/index.mjs",
     "scripts": {
-        "start": "NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
-        "start:server": "NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
+        "start": "cross-env NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
+        "start:server": "cross-env NODE_ENV=PRODUCTION tsx ./src/server/index.ts",
         "dev": "tsx --watch ./src/server/index.ts",
         "dev:server": "tsx --watch ./src/server/index.ts",
         "build": "pkgroll",
@@ -14,7 +14,7 @@
         "type-check": "tsc --noEmit",
         "lint-all": "eslint . && tsc --noEmit",
         "build-with-checks": "eslint . && tsc --noEmit && pkgroll",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "tsx --test"
     },
     "type": "module",
     "author": "",
@@ -23,17 +23,21 @@
     "dependencies": {
         "@types/cors": "^2.8.17",
         "@types/express": "^4.17.15",
+        "@types/jsonwebtoken": "^9.0.7",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",
         "express": "^4.21.0",
+        "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.9.0",
         "mongoose": "^8.6.3",
         "zod": "^3.23.8"
     },
     "devDependencies": {
         "@eslint/js": "^9.11.1",
+        "@faker-js/faker": "^9.0.3",
         "@types/node": "^20.9.3",
         "concurrently": "^9.0.1",
+        "cross-env": "^7.0.3",
         "eslint": "^9.11.1",
         "globals": "^15.9.0",
         "pkgroll": "^2.5.0",
